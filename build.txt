@@ -1,0 +1,7 @@
+﻿author = jopojelly
+version = 1.5.4
+displayName = Helpful Hotkeys
+homepage = http://forums.terraria.org/index.php?threads/helpful-hotkeys.39382/
+buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config
+includePDB = true
+side = Client

@@ -1,0 +1,34 @@
+﻿Adds helpful hotkeys. Change hotkey assignments in Settings/Mod Controls.
+
+Cycle Ammo: Defaults to the Period key.
+    Cycles the ammo in the ammo slots. Quickly switch ammo to adapt to situations. Hold for 1 second to enable/disable Auto Cycle Ammo mode. In Auto Cycle Ammo mode, ammo is cycled each time ammo would be used.
+
+Auto Torch: Defaults to the Tilde/Backtick key.
+    Automatically places a torch from your inventory in the world as close to the mouse cursor as possible. Great for placing torches quickly while exploring without worrying about aiming the mouse to find a suitable wall or tile to attach to.
+
+Auto Recall: Defaults to the Home key.
+    Automatically uses a Magic Mirror, Cellphone, or Recall Potion from your inventory. No longer does your magic mirror need to occupy precious space on your hotbar.
+
+Quick Stack to Chests: Defaults to - (Minus, like, get rid of this junk.)
+    If using a chest, Quick Stacks to that chest, otherwise, Quick Stacks to nearby chests. Simply a keyboard shortcut to the buttons. Just hold down the hotkey and run through your treasure room!
+
+Smart Quick Stack to Chests: Defaults to \ (the \ and | key near backspace)
+    Like normal quickstack, except it is super smart. If you have a Wooden Axe in a chest, it'll place your Iron Axe in as well. Keep what you want to keep favorited. Solves Chest organization intuitively.
+
+Quick Buff Favorited Only: Defaults to B (You'll want to remap the original Quick Buff)
+    Just like Quick Buff, but only attempts to use the potions that have been favorited (Alt-click). No longer need you fight bosses with Sonar, Fishing, Crate, Spelunker, etc potions.
+
+Query Mod Origin: Defaults to the /? button
+    Hover over an item, NPC, buff, tile, or wall and a message will tell you which mod the thing came from.
+
+Toggle Autopause: Defaults to P
+    Toggles the autopause setting. 
+
+Quick Use Item #20: Defaults to L
+    Use the item in slot 20. (2nd row, far right. Most useful for Rod of Discord and Money Trough)
+
+Swap Armor and Vanity: No Default
+    This will swap all armor in vanity with equiped armor, but only if the vanity slot is actual armor and not vanity. Hold for half a second to additionally swap accessories.
+
+Cycling Quick Mount: No Default
+    A special Quick Mount hotkey that will cycle through all available mounts rather than just one. If used, simply replace the vanilla Quick Mount with this more versatile alternative.
