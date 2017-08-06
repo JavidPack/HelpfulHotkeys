@@ -21,7 +21,6 @@ namespace HelpfulHotkeys
 		private bool smartStackButtonHovered;
 		
 		internal static List<int> RecallItems;
-		internal static List<int> Torches;
 
 		internal static ModHotKey AutoRecallHotKey;
 		internal static ModHotKey AutoTorchHotKey;
@@ -70,7 +69,6 @@ namespace HelpfulHotkeys
 				ItemID.CellPhone,
 				ItemID.RecallPotion
 			});
-			Torches = new List<int>();
 
 			/*var loadModsField = Assembly.GetCallingAssembly().GetType("Terraria.ModLoader.Interface").GetField("loadMods", BindingFlags.Static | BindingFlags.NonPublic);
 			Main.instance.LoadNPC(NPCID.MoonLordHead);
@@ -87,9 +85,6 @@ namespace HelpfulHotkeys
 			{
 				case "RegisterRecallItem":
 					RecallItems.Add(Convert.ToInt32(args[1]));
-					return true;
-				case "RegisterTorch":
-					Torches.Add(Convert.ToInt32(args[1]));
 					return true;
 			}
 			return base.Call(args);

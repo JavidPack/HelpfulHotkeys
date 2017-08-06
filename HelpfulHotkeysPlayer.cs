@@ -584,8 +584,7 @@ namespace HelpfulHotkeys
 		{
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].createTile == TileID.Torches || HelpfulHotkeys.Torches.Contains(player.inventory[i].type))
-				//if (player.inventory[i].type == ItemID.Torch)
+				if (TileLoader.IsTorch(player.inventory[i].createTile))
 				{
 					originalSelectedItem = player.selectedItem;
 					autoRevertSelectedItem = true;
