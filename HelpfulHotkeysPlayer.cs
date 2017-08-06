@@ -584,7 +584,7 @@ namespace HelpfulHotkeys
 		{
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].createTile == TileID.Torches)
+				if (player.inventory[i].createTile == TileID.Torches || HelpfulHotkeys.Torches.Contains(player.inventory[i].type))
 				//if (player.inventory[i].type == ItemID.Torch)
 				{
 					originalSelectedItem = player.selectedItem;
@@ -640,7 +640,7 @@ namespace HelpfulHotkeys
 		{
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ItemID.MagicMirror || player.inventory[i].type == ItemID.IceMirror || player.inventory[i].type == ItemID.CellPhone || player.inventory[i].type == ItemID.RecallPotion)
+				if (HelpfulHotkeys.RecallItems.Contains(player.inventory[i].type))
 				{
 					originalSelectedItem = player.selectedItem;
 					autoRevertSelectedItem = true;
