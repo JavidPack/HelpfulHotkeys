@@ -2,6 +2,6 @@
 version = 1.5.4.1
 displayName = Helpful Hotkeys
 homepage = http://forums.terraria.org/index.php?threads/helpful-hotkeys.39382/
-buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config
+buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*
 includePDB = true
 side = Client
