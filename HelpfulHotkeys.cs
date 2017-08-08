@@ -19,7 +19,7 @@ namespace HelpfulHotkeys
 		private bool smartStackButtonHover;
 		private float smartStackButtonScale;
 		private bool smartStackButtonHovered;
-		
+
 		internal static List<int> RecallItems;
 
 		internal static ModHotKey AutoRecallHotKey;
@@ -61,7 +61,7 @@ namespace HelpfulHotkeys
 				GetTexture("SmartStack_Off"),
 				GetTexture("SmartStack_On")
 			};
-			
+
 			RecallItems = new List<int>(new int[]
 			{
 				ItemID.MagicMirror,
@@ -77,17 +77,28 @@ namespace HelpfulHotkeys
 			face.VAlign = 0.5f;
 			(loadModsField.GetValue(null) as UIState).Append(face);*/
 		}
-		
+
+		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])
 		public override object Call(params object[] args)
 		{
-			string messageType = args[0] as string;
-			switch(messageType)
+			try
 			{
-				case "RegisterRecallItem":
-					RecallItems.Add(Convert.ToInt32(args[1]));
-					return true;
+				string messageType = args[0] as string;
+				switch (messageType)
+				{
+					case "RegisterRecallItem":
+						RecallItems.Add(Convert.ToInt32(args[1]));
+						return "Success";
+					default:
+						ErrorLogger.Log("HelpfulHotkeys: Unknown Message type: " + messageType);
+						return "Failure";
+				}
 			}
-			return base.Call(args);
+			catch (Exception e)
+			{
+				ErrorLogger.Log("HelpfulHotkeys Call Error: " + e.StackTrace + e.Message);
+			}
+			return "Failure";
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
