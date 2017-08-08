@@ -19,6 +19,8 @@ namespace HelpfulHotkeys
 		private bool smartStackButtonHover;
 		private float smartStackButtonScale;
 		private bool smartStackButtonHovered;
+		
+		internal static List<int> RecallItems;
 
 		internal static ModHotKey AutoRecallHotKey;
 		internal static ModHotKey AutoTorchHotKey;
@@ -41,7 +43,8 @@ namespace HelpfulHotkeys
 		}
 
 		public override void Load()
-		{			AutoRecallHotKey = RegisterHotKey("Auto Recall", "Home");
+		{
+			AutoRecallHotKey = RegisterHotKey("Auto Recall", "Home");
 			AutoTorchHotKey = RegisterHotKey("Auto Torch", "OemTilde");
 			CycleAmmoHotKey = RegisterHotKey("Cycle Ammo", "OemPeriod");
 			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
@@ -58,6 +61,14 @@ namespace HelpfulHotkeys
 				GetTexture("SmartStack_Off"),
 				GetTexture("SmartStack_On")
 			};
+			
+			RecallItems = new List<int>(new int[]
+			{
+				ItemID.MagicMirror,
+				ItemID.IceMirror,
+				ItemID.CellPhone,
+				ItemID.RecallPotion
+			});
 
 			/*var loadModsField = Assembly.GetCallingAssembly().GetType("Terraria.ModLoader.Interface").GetField("loadMods", BindingFlags.Static | BindingFlags.NonPublic);
 			Main.instance.LoadNPC(NPCID.MoonLordHead);
@@ -65,6 +76,18 @@ namespace HelpfulHotkeys
 			face.HAlign = 0.5f;
 			face.VAlign = 0.5f;
 			(loadModsField.GetValue(null) as UIState).Append(face);*/
+		}
+		
+		public override object Call(params object[] args)
+		{
+			string messageType = args[0] as string;
+			switch(messageType)
+			{
+				case "RegisterRecallItem":
+					RecallItems.Add(Convert.ToInt32(args[1]));
+					return true;
+			}
+			return base.Call(args);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
