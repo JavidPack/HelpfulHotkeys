@@ -78,6 +78,22 @@ namespace HelpfulHotkeys
 			(loadModsField.GetValue(null) as UIState).Append(face);*/
 		}
 
+		public override void Unload()
+		{
+			smartStackButtonTextures = null;
+			AutoRecallHotKey =
+			AutoTorchHotKey =
+			CycleAmmoHotKey =
+			QuickStackToChestsHotKey =
+			SmartQuickStackToChestsHotKey =
+			QuickUseItem20Hotkey =
+			QuickBuffFavoritedOnlyHotkey =
+			QueryModOriginHotkey =
+			ToggleAutopauseHotkey =
+			SwapArmorVanityHotkey =
+			CyclingQuickMountHotkey = null;
+		}
+
 		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])
 		public override object Call(params object[] args)
 		{
