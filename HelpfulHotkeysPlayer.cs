@@ -536,7 +536,7 @@ namespace HelpfulHotkeys
 				autoRevertSelectedItem = true;
 				player.selectedItem = slot - 1;
 				player.controlUseItem = true;
-				player.ItemCheck( Main.myPlayer );
+				player.ItemCheck(Main.myPlayer);
 			}
 		}
 
