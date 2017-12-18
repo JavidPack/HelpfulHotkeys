@@ -63,9 +63,11 @@ namespace HelpfulHotkeys
 			{
 				SmartQuickStackToChests();
 			}
-			if (HelpfulHotkeys.QuickUseItem20Hotkey.JustPressed)
-			{
-				QuickUseItem20();
+			for ( byte i = 11 ; i <= 20 ; i++ ) {
+				if ( HelpfulHotkeys.QuickUseItemHotkey[i].JustPressed )
+				{
+					QuickUseItem( i );
+				}
 			}
 			if (HelpfulHotkeys.QuickBuffFavoritedOnlyHotkey.JustPressed)
 			{
@@ -526,15 +528,15 @@ namespace HelpfulHotkeys
 			Main.NewText("Autopause turned " + (Main.autoPause ? "on" : "off"));
 		}
 
-		public void QuickUseItem20()
+		public void QuickUseItem( byte slot )
 		{
-			if (player.inventory[19].type != 0)
+			if ( player.inventory[ slot - 1 ].type != 0 )
 			{
 				originalSelectedItem = player.selectedItem;
 				autoRevertSelectedItem = true;
-				player.selectedItem = 19;
+				player.selectedItem = slot - 1;
 				player.controlUseItem = true;
-				player.ItemCheck(Main.myPlayer);
+				player.ItemCheck( Main.myPlayer );
 			}
 		}
 
