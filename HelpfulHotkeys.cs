@@ -27,7 +27,7 @@ namespace HelpfulHotkeys
 		internal static ModHotKey CycleAmmoHotKey;
 		internal static ModHotKey QuickStackToChestsHotKey;
 		internal static ModHotKey SmartQuickStackToChestsHotKey;
-		internal static ModHotKey QuickUseItem20Hotkey;
+		internal static ModHotKey[] QuickUseItemHotkey;
 		internal static ModHotKey QuickBuffFavoritedOnlyHotkey;
 		internal static ModHotKey QueryModOriginHotkey;
 		internal static ModHotKey ToggleAutopauseHotkey;
@@ -49,7 +49,18 @@ namespace HelpfulHotkeys
 			CycleAmmoHotKey = RegisterHotKey("Cycle Ammo", "OemPeriod");
 			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
 			SmartQuickStackToChestsHotKey = RegisterHotKey("Smart Quick Stack to Chests", "OemPipe");
-			QuickUseItem20Hotkey = RegisterHotKey("Quick Use Item #20", "L");
+			QuickUseItemHotkey = new ModHotKey[] {
+				RegisterHotKey("Quick Use Item #11", "");
+				RegisterHotKey("Quick Use Item #12", "");
+				RegisterHotKey("Quick Use Item #13", "");
+				RegisterHotKey("Quick Use Item #14", "");
+				RegisterHotKey("Quick Use Item #15", "");
+				RegisterHotKey("Quick Use Item #16", "");
+				RegisterHotKey("Quick Use Item #17", "");
+				RegisterHotKey("Quick Use Item #18", "");
+				RegisterHotKey("Quick Use Item #19", "");
+				RegisterHotKey("Quick Use Item #20", "L");
+			};
 			QuickBuffFavoritedOnlyHotkey = RegisterHotKey("Quick Buff Favorited Only", "B");
 			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
 			ToggleAutopauseHotkey = RegisterHotKey("Toggle Autopause", "P");
@@ -86,7 +97,7 @@ namespace HelpfulHotkeys
 			CycleAmmoHotKey =
 			QuickStackToChestsHotKey =
 			SmartQuickStackToChestsHotKey =
-			QuickUseItem20Hotkey =
+			QuickUseItemHotkey =
 			QuickBuffFavoritedOnlyHotkey =
 			QueryModOriginHotkey =
 			ToggleAutopauseHotkey =
