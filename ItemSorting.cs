@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace HelpfulHotkeys
 {
@@ -99,7 +98,7 @@ namespace HelpfulHotkeys
 				});
 			public static ItemSorting.ItemSortingLayer ArmorCombatChest = new ItemSorting.ItemSortingLayer("Armor - Combat", delegate (Item item)
 				{
-					return (item.bodySlot >= 0 ) && !item.vanity;
+					return (item.bodySlot >= 0) && !item.vanity;
 				});
 			public static ItemSorting.ItemSortingLayer ArmorCombatLegs = new ItemSorting.ItemSortingLayer("Armor - Combat", delegate (Item item)
 				{
@@ -115,7 +114,7 @@ namespace HelpfulHotkeys
 				});
 			public static ItemSorting.ItemSortingLayer ArmorVanityChest = new ItemSorting.ItemSortingLayer("Armor - Combat", delegate (Item item)
 				{
-					return (item.bodySlot >= 0 ) && item.vanity;
+					return (item.bodySlot >= 0) && item.vanity;
 				});
 			public static ItemSorting.ItemSortingLayer ArmorVanityLegs = new ItemSorting.ItemSortingLayer("Armor - Combat", delegate (Item item)
 				{
@@ -171,7 +170,7 @@ namespace HelpfulHotkeys
 				});
 			public static ItemSorting.ItemSortingLayer MiscValuables = new ItemSorting.ItemSortingLayer("Misc - Importants", delegate (Item item)
 				{
-					return item.netID > 0 && ItemID.Sets.SortingPriorityBossSpawns[item.netID] > -1;
+					return item.netID > 0 && ItemID.Sets.SortingPriorityBossSpawns[item.netID] > -1 && item.netID != ItemID.TreasureMap || item.netID == ItemID.PirateMap; // vanilla bug.
 				});
 			public static ItemSorting.ItemSortingLayer MiscWiring = new ItemSorting.ItemSortingLayer("Misc - Wiring", delegate (Item item)
 				{

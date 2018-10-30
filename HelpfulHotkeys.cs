@@ -1,15 +1,13 @@
-﻿using Terraria.ModLoader;
-using Terraria;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.UI.Chat;
 using System;
-using System.Reflection;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.UI.Chat;
 
 namespace HelpfulHotkeys
 {
@@ -33,6 +31,7 @@ namespace HelpfulHotkeys
 		internal static ModHotKey ToggleAutopauseHotkey;
 		internal static ModHotKey SwapArmorVanityHotkey;
 		internal static ModHotKey CyclingQuickMountHotkey;
+		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		public HelpfulHotkeys()
 		{

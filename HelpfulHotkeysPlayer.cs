@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using System.Collections.Generic;
-using System;
-using System.Reflection;
-using Terraria.Audio;
 
 namespace HelpfulHotkeys
 {
@@ -687,7 +687,7 @@ namespace HelpfulHotkeys
 			bool swapHappens = false;
 			for (int slot = 13; slot < 18 + player.extraAccessorySlots; slot++)
 			{
-				if (!player.armor[slot].IsAir && !player.armor[slot].vanity	&& !player.armor[slot - 10].IsAir)
+				if (!player.armor[slot].IsAir && !player.armor[slot].vanity && !player.armor[slot - 10].IsAir)
 				{
 					bool wingPrevent = true;
 					if (player.armor[slot].wingSlot > 0)
