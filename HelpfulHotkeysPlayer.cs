@@ -612,7 +612,7 @@ namespace HelpfulHotkeys
 						Player.tileTargetY = target.Item2.Y;
 						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
 						player.ItemCheck(Main.myPlayer);
-						Dust.QuickDust(target.Item2, Color.Aqua);
+						//Dust.QuickDust(target.Item2, Color.Aqua);
 						int v = player.itemAnimation;
 						if (!original.isTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
 						{
