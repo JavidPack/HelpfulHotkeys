@@ -592,40 +592,36 @@ namespace HelpfulHotkeys
 					player.controlUseItem = true;
 					Player.tileTargetX = (int)(player.Center.X / 16);
 					Player.tileTargetY = (int)(player.Center.Y / 16);
-					//player.ItemCheck(Main.myPlayer);
-					//break;
 					int oldstack = player.inventory[player.selectedItem].stack;
 
-					float oldClosest = float.MinValue;
-					bool triedNewPlace = false;
-					do
+					List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
+
+					for (int j = -Player.tileRangeX - player.blockRange + (int)(player.position.X / 16f) + 1; j <= Player.tileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
 					{
-						float closest = float.MaxValue;
-						triedNewPlace = false;
-						for (int j = -Player.tileRangeX - player.blockRange + (int)(player.position.X / 16f); j <= Player.tileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
+						for (int k = -Player.tileRangeY - player.blockRange + (int)(player.position.Y / 16f) + 1; k <= Player.tileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
 						{
-							for (int k = -Player.tileRangeY - player.blockRange + (int)(player.position.Y / 16f); k <= Player.tileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
-							{
-								//ErrorLogger.Log(""+Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)));
-								if (closest > Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)) && oldClosest < Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)))
-								{
-									triedNewPlace = true;
-									//ErrorLogger.Log("closest " + j + " " + k);
-									closest = Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16));
-									Player.tileTargetX = j;
-									Player.tileTargetY = k;
-								}
-							}
+							targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
 						}
-
-						oldClosest = closest; // next round, try farther away from mouse.
-											  //ErrorLogger.Log("closest " + Player.tileTargetX + " " + Player.tileTargetY);
-											  //ErrorLogger.Log("stack " + player.inventory[player.selectedItem].stack);
-						player.ItemCheck(Main.myPlayer);
 					}
-					while (triedNewPlace && oldstack == player.inventory[player.selectedItem].stack);
+					targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 
-					break;
+					bool placeSuccess = false;
+					foreach (var target in targets)
+					{
+						Player.tileTargetX = target.Item2.X;
+						Player.tileTargetY = target.Item2.Y;
+						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+						player.ItemCheck(Main.myPlayer);
+						Dust.QuickDust(target.Item2, Color.Aqua);
+						int v = player.itemAnimation;
+						if (!original.isTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						{
+							placeSuccess = true;
+							break;
+						}
+					}
+					if (placeSuccess)
+						break;
 
 					//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
 					//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
