@@ -88,6 +88,10 @@ namespace HelpfulHotkeys
 					SwapAccessoriesVanity();
 				}
 			}
+			if (HelpfulHotkeys.SwapHotbarHotkey.JustPressed)
+			{
+				SwapHotbar();
+			}
 			if (HelpfulHotkeys.CyclingQuickMountHotkey.JustPressed)
 			{
 				CyclingQuickMount();
@@ -707,6 +711,23 @@ namespace HelpfulHotkeys
 			{
 				Main.PlaySound(SoundID.Grab);
 				Recipe.FindRecipes();
+			}
+		}
+
+		public void SwapHotbar()
+		{
+			bool swapHappens = false;
+			for (int i = 0; i < 10; i++)
+			{
+				if (/*!player.inventory[i].IsAir && */!player.inventory[i + 10].IsAir)
+				{
+					Utils.Swap(ref player.inventory[i], ref player.inventory[i + 10]);
+					swapHappens = true;
+				}
+			}
+			if (swapHappens)
+			{
+				Main.PlaySound(SoundID.Grab);
 			}
 		}
 

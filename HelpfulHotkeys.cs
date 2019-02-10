@@ -30,6 +30,7 @@ namespace HelpfulHotkeys
 		internal static ModHotKey QueryModOriginHotkey;
 		internal static ModHotKey ToggleAutopauseHotkey;
 		internal static ModHotKey SwapArmorVanityHotkey;
+		internal static ModHotKey SwapHotbarHotkey;
 		internal static ModHotKey CyclingQuickMountHotkey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
@@ -53,6 +54,7 @@ namespace HelpfulHotkeys
 			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
 			ToggleAutopauseHotkey = RegisterHotKey("Toggle Autopause", "P");
 			SwapArmorVanityHotkey = RegisterHotKey("Swap Armor with Vanity", "");
+			SwapHotbarHotkey = RegisterHotKey("Swap Hotbar with 1st row", "");
 			CyclingQuickMountHotkey = RegisterHotKey("Cycling Quick Mount", "");
 
 			smartStackButtonTextures = new Texture2D[]
@@ -90,6 +92,7 @@ namespace HelpfulHotkeys
 			QueryModOriginHotkey =
 			ToggleAutopauseHotkey =
 			SwapArmorVanityHotkey =
+			SwapHotbarHotkey =
 			CyclingQuickMountHotkey = null;
 		}
 
