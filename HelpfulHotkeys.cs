@@ -26,12 +26,14 @@ namespace HelpfulHotkeys
 		internal static ModHotKey QuickStackToChestsHotKey;
 		internal static ModHotKey SmartQuickStackToChestsHotKey;
 		internal static ModHotKey QuickUseItem20Hotkey;
+		internal static ModHotKey QuickUseConfigItemHotkey;
 		internal static ModHotKey QuickBuffFavoritedOnlyHotkey;
 		internal static ModHotKey QueryModOriginHotkey;
 		internal static ModHotKey ToggleAutopauseHotkey;
 		internal static ModHotKey SwapArmorVanityHotkey;
 		internal static ModHotKey SwapHotbarHotkey;
 		internal static ModHotKey CyclingQuickMountHotkey;
+		internal static ModHotKey SwitchFrameSkipModeHotkey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		public HelpfulHotkeys()
@@ -50,12 +52,14 @@ namespace HelpfulHotkeys
 			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
 			SmartQuickStackToChestsHotKey = RegisterHotKey("Smart Quick Stack to Chests", "OemPipe");
 			QuickUseItem20Hotkey = RegisterHotKey("Quick Use Item #20", "L");
+			QuickUseConfigItemHotkey = RegisterHotKey("Quick Use Config Item", "");
 			QuickBuffFavoritedOnlyHotkey = RegisterHotKey("Quick Buff Favorited Only", "B");
 			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
 			ToggleAutopauseHotkey = RegisterHotKey("Toggle Autopause", "P");
 			SwapArmorVanityHotkey = RegisterHotKey("Swap Armor with Vanity", "");
 			SwapHotbarHotkey = RegisterHotKey("Swap Hotbar with 1st row", "");
 			CyclingQuickMountHotkey = RegisterHotKey("Cycling Quick Mount", "");
+			SwitchFrameSkipModeHotkey = RegisterHotKey("Switch Frame Skip Mode", "");
 
 			smartStackButtonTextures = new Texture2D[]
 			{
@@ -88,12 +92,14 @@ namespace HelpfulHotkeys
 			QuickStackToChestsHotKey =
 			SmartQuickStackToChestsHotKey =
 			QuickUseItem20Hotkey =
+			QuickUseConfigItemHotkey =
 			QuickBuffFavoritedOnlyHotkey =
 			QueryModOriginHotkey =
 			ToggleAutopauseHotkey =
 			SwapArmorVanityHotkey =
 			SwapHotbarHotkey =
-			CyclingQuickMountHotkey = null;
+			CyclingQuickMountHotkey =
+			SwitchFrameSkipModeHotkey = null;
 		}
 
 		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])

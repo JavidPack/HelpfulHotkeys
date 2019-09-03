@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -67,6 +68,9 @@ namespace HelpfulHotkeys
 			{
 				QuickUseItem20();
 			}
+			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
+				QuickUseConfigItem();
+			}
 			if (HelpfulHotkeys.QuickBuffFavoritedOnlyHotkey.JustPressed)
 			{
 				QuickBuffFavoritedOnly();
@@ -95,6 +99,10 @@ namespace HelpfulHotkeys
 			if (HelpfulHotkeys.CyclingQuickMountHotkey.JustPressed)
 			{
 				CyclingQuickMount();
+			}
+			if (HelpfulHotkeys.SwitchFrameSkipModeHotkey.JustPressed) {
+				Main.FrameSkipMode = (Main.FrameSkipMode + 1) % 3;
+				Main.NewText($"Frame Skip Mode is now: {Language.GetTextValue("LegacyMenu." + (247 + Main.FrameSkipMode))}");
 			}
 		}
 
@@ -540,6 +548,24 @@ namespace HelpfulHotkeys
 				player.controlUseItem = true;
 				player.ItemCheck(Main.myPlayer);
 			}
+		}
+
+		public void QuickUseConfigItem() {
+			int type = HelpfulHotkeysClientConfig.Instance.QuickUseConfigItem.Type;
+			if(type == 0) {
+				Main.NewText("No item registered for Quick Use Config Item hotkey, please fix.");
+				return;
+			}
+			int index = Main.LocalPlayer.FindItem(type);
+			if (index == -1) {
+				Main.NewText($"Quick Use Config Item \"{Lang.GetItemNameValue(type)}\" not found in inventory.");
+				return;
+			}
+			originalSelectedItem = player.selectedItem;
+			autoRevertSelectedItem = true;
+			player.selectedItem = index;
+			player.controlUseItem = true;
+			player.ItemCheck(Main.myPlayer);
 		}
 
 		public void SmartQuickStackToChests()
