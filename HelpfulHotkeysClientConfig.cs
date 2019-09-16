@@ -21,6 +21,11 @@ namespace HelpfulHotkeys
 		[Label("Quick Use Config Item")]
 		[Tooltip("Customize the Quick Use Config Item here\nThe specified item can be quickly used from your inventory by pressing the hotkey")]
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
+
+		[Label("Show Developer Info")]
+		[Tooltip("Enhances the Query Mod Origin hotkey to show internal names of modded items.\nVanilla ID values will also be shown.")]
+		[DefaultValue(false)]
+		public bool ShowDeveloperInfoQueryModOrigin { get; set; }
 	}
 #pragma warning restore 0649
 }

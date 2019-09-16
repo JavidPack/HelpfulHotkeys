@@ -463,7 +463,7 @@ namespace HelpfulHotkeys
 				if (hoverBuffID >= BuffID.Count)
 				{
 					ModBuff hoverBuff = BuffLoader.GetBuff(hoverBuffID);
-					Main.NewText("This buff is from: " + hoverBuff.mod.Name);
+					Main.NewText("This buff is from: " + hoverBuff.mod.DisplayName);
 				}
 				else
 				{
@@ -476,31 +476,40 @@ namespace HelpfulHotkeys
 			{
 				if (Main.HoverItem.modItem != null)
 				{
-					Main.NewText("This item is from: " + Main.HoverItem.modItem.mod.Name);
+					Main.NewText("This item is from: " + Main.HoverItem.modItem.mod.DisplayName);
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {Main.HoverItem.modItem.mod.Name}, InternalName: {Main.HoverItem.modItem.Name}, FullName: {Main.HoverItem.modItem.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla item.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ItemID: {ItemID.Search.GetName(Main.HoverItem.type)}, ItemID#: {Main.HoverItem.type}");
 				}
 			}
 
 			// NPC
 			else if (closestNPCDistance < 30)
 			{
-				if (Main.npc[closestNPCIndex].modNPC != null)
+				NPC closestNPC = Main.npc[closestNPCIndex];
+				if (closestNPC.modNPC != null)
 				{
-					Main.NewText("This npc is from: " + Main.npc[closestNPCIndex].modNPC.mod.Name);
+					Main.NewText("This npc is from: " + closestNPC.modNPC.mod.DisplayName);
+					if(HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {closestNPC.modNPC.mod.Name}, InternalName: {closestNPC.modNPC.Name}, FullName: {closestNPC.modNPC.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla npc.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: NPCID: {NPCID.Search.GetName(closestNPC.type)}, NPCID#: {closestNPC.type}");
 				}
 			}
 
 			// Tile
 			else if (Main.tile[mouseTile.X, mouseTile.Y].type >= TileID.Count)
 			{
-				Main.NewText("This tile is from: " + TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type).mod.Name);
+				Main.NewText("This tile is from: " + TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type).mod.DisplayName);
 				//Main.NewText("This tile is active: " + Main.tile[mouseTile.X, mouseTile.Y].active());
 				//Main.NewText("This tile is inactive: " + Main.tile[mouseTile.X, mouseTile.Y].inActive());
 				//Main.NewText("This tile is nactive: " + Main.tile[mouseTile.X, mouseTile.Y].nactive());
@@ -509,7 +518,7 @@ namespace HelpfulHotkeys
 			// Wall
 			else if (Main.tile[mouseTile.X, mouseTile.Y].wall >= WallID.Count)
 			{
-				Main.NewText("This wall is from: " + WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall).mod.Name);
+				Main.NewText("This wall is from: " + WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall).mod.DisplayName);
 			}
 
 			// Item on ground
@@ -517,11 +526,16 @@ namespace HelpfulHotkeys
 			{
 				if (Main.item[closestItemIndex].modItem != null)
 				{
-					Main.NewText("This item is from: " + Main.item[closestItemIndex].modItem.mod.Name);
+					ModItem modItem = Main.item[closestItemIndex].modItem;
+					Main.NewText("This item is from: " + modItem.mod.DisplayName);
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {modItem.mod.Name}, InternalName: {modItem.Name}, FullName: {modItem.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla item.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ItemID: {ItemID.Search.GetName(Main.item[closestItemIndex].type)}, ItemID#: {Main.item[closestItemIndex].type}");
 				}
 			}
 
