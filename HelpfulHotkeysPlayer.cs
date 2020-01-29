@@ -67,10 +67,7 @@ namespace HelpfulHotkeys
 			}
 			if (HelpfulHotkeys.QuickUseItem20Hotkey.JustPressed)
 			{
-				if (player.selectedItem != ITEM20)
-				{
-					QuickUseItemAt(ITEM20);
-				}
+				QuickUseItemAt(ITEM20);
 			}
 			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
 				QuickUseConfigItem();
@@ -558,7 +555,7 @@ namespace HelpfulHotkeys
 
 		public void QuickUseItemAt(int index, bool use = true)
 		{
-			if (player.inventory[index].type != 0)
+			if (!autoRevertSelectedItem && player.selectedItem != index && player.inventory[index].type != 0)
 			{
 				originalSelectedItem = player.selectedItem;
 				autoRevertSelectedItem = true;
