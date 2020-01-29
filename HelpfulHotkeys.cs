@@ -114,13 +114,13 @@ namespace HelpfulHotkeys
 						RecallItems.Add(Convert.ToInt32(args[1]));
 						return "Success";
 					default:
-						ErrorLogger.Log("HelpfulHotkeys: Unknown Message type: " + messageType);
+						Logger.Warn("Unknown Message type: " + messageType);
 						return "Failure";
 				}
 			}
 			catch (Exception e)
 			{
-				ErrorLogger.Log("HelpfulHotkeys Call Error: " + e.StackTrace + e.Message);
+				Logger.Warn("Call Error: " + e.StackTrace + e.Message);
 			}
 			return "Failure";
 		}
@@ -168,7 +168,7 @@ namespace HelpfulHotkeys
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						Main.mouseLeftRelease = false;
-						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>(this);
+						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
 						modPlayer.smartQuickStack();
 						Recipe.FindRecipes();
 					}
@@ -216,7 +216,7 @@ namespace HelpfulHotkeys
 					{
 						return;
 					}
-					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>(this);
+					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>();
 					modPlayer.smartQuickStack();
 					Recipe.FindRecipes();
 				}
