@@ -14,6 +14,7 @@ namespace HelpfulHotkeys
 {
 	public class HelpfulHotkeysPlayer : ModPlayer
 	{
+		internal const int ITEM20 = 19;
 		internal int originalSelectedItem;
 		internal bool autoRevertSelectedItem = false;
 		internal bool autoCycleAmmo = false;
@@ -66,7 +67,7 @@ namespace HelpfulHotkeys
 			}
 			if (HelpfulHotkeys.QuickUseItem20Hotkey.JustPressed)
 			{
-				QuickUseItem20();
+				QuickUseItemAt(ITEM20);
 			}
 			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
 				QuickUseConfigItem();
@@ -220,7 +221,7 @@ namespace HelpfulHotkeys
 		public Item QuickMountCycle_GetItemToUse(int lastMount)
 		{
 			bool lastMountFound = false;
-			bool lastMountPassed = false;
+			//bool lastMountPassed = false;
 			Item item = null;
 			if (item == null && player.miscEquips[3].mountType != -1 && !MountID.Sets.Cart[player.miscEquips[3].mountType] && ItemLoader.CanUseItem(player.miscEquips[3], player))
 			{
@@ -552,15 +553,18 @@ namespace HelpfulHotkeys
 			Main.NewText("Autopause turned " + (Main.autoPause ? "on" : "off"));
 		}
 
-		public void QuickUseItem20()
+		public void QuickUseItemAt(int index, bool use = true)
 		{
-			if (player.inventory[19].type != 0)
+			if (!autoRevertSelectedItem && player.selectedItem != index && player.inventory[index].type != 0)
 			{
 				originalSelectedItem = player.selectedItem;
 				autoRevertSelectedItem = true;
-				player.selectedItem = 19;
+				player.selectedItem = index;
 				player.controlUseItem = true;
-				player.ItemCheck(Main.myPlayer);
+				if (use)
+				{
+					player.ItemCheck(Main.myPlayer);
+				}
 			}
 		}
 
@@ -575,11 +579,7 @@ namespace HelpfulHotkeys
 				Main.NewText($"Quick Use Config Item \"{Lang.GetItemNameValue(type)}\" not found in inventory.");
 				return;
 			}
-			originalSelectedItem = player.selectedItem;
-			autoRevertSelectedItem = true;
-			player.selectedItem = index;
-			player.controlUseItem = true;
-			player.ItemCheck(Main.myPlayer);
+			QuickUseItemAt(index);
 		}
 
 		public void SmartQuickStackToChests()
@@ -630,10 +630,7 @@ namespace HelpfulHotkeys
 			{
 				if (TileLoader.IsTorch(player.inventory[i].createTile))
 				{
-					originalSelectedItem = player.selectedItem;
-					autoRevertSelectedItem = true;
-					player.selectedItem = i;
-					player.controlUseItem = true;
+					QuickUseItemAt(i, use: false);
 					Player.tileTargetX = (int)(player.Center.X / 16);
 					Player.tileTargetY = (int)(player.Center.Y / 16);
 					int oldstack = player.inventory[player.selectedItem].stack;
@@ -681,11 +678,7 @@ namespace HelpfulHotkeys
 			{
 				if (HelpfulHotkeys.RecallItems.Contains(player.inventory[i].type))
 				{
-					originalSelectedItem = player.selectedItem;
-					autoRevertSelectedItem = true;
-					player.selectedItem = i;
-					player.controlUseItem = true;
-					player.ItemCheck(Main.myPlayer);
+					QuickUseItemAt(i);
 					break;
 				}
 			}
