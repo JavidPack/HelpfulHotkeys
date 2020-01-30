@@ -65,10 +65,11 @@ namespace HelpfulHotkeys
 			{
 				SmartQuickStackToChests();
 			}
-			if (HelpfulHotkeys.QuickUseItem20Hotkey.JustPressed)
-			{
-				QuickUseItemAt(ITEM20);
-			}
+			for ( byte i = 11 ; i <= 20 ; i++ ) {
+				if ( HelpfulHotkeys.QuickUseItemHotkeys[i].JustPressed )
+				{
+					QuickUseItemAt( i );
+				}
 			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
 				QuickUseConfigItem();
 			}
