@@ -27,8 +27,17 @@ Toggle Autopause: Defaults to P
 Quick Use Item #20: Defaults to L
     Use the item in slot 20. (2nd row, far right. Most useful for Rod of Discord and Money Trough)
 
+Quick Use Config Item: No Default
+    Use the item specified in the config, regardless of slot, if found in inventory. Similar to Quick Use Item #20 but allows the item to be moved.
+
 Swap Armor and Vanity: No Default
-    This will swap all armor in vanity with equiped armor, but only if the vanity slot is actual armor and not vanity. Hold for half a second to additionally swap accessories.
+    This will swap all armor in vanity with equipped armor, but only if the vanity slot is actual armor and not vanity. Hold for half a second to additionally swap accessories.
+
+Swap Hotbar: No Default
+    This will swap the hotbar and the 1st row of inventory. Useful for swapping weapon and tool loadouts.
 
 Cycling Quick Mount: No Default
     A special Quick Mount hotkey that will cycle through all available mounts rather than just one. If used, simply replace the vanilla Quick Mount with this more versatile alternative.
+
+Switch Frame Skip Mode: No Default
+    Cycles between frame skip off, on, and subtle.

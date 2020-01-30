@@ -1,15 +1,13 @@
-﻿using Terraria.ModLoader;
-using Terraria;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.UI.Chat;
 using System;
-using System.Reflection;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameInput;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.UI.Chat;
 
 namespace HelpfulHotkeys
 {
@@ -27,12 +25,16 @@ namespace HelpfulHotkeys
 		internal static ModHotKey CycleAmmoHotKey;
 		internal static ModHotKey QuickStackToChestsHotKey;
 		internal static ModHotKey SmartQuickStackToChestsHotKey;
-		internal static ModHotKey[] QuickUseItemHotkey;
+		internal static ModHotKey[] QuickUseItemHotkeys;
+		internal static ModHotKey QuickUseConfigItemHotkey;
 		internal static ModHotKey QuickBuffFavoritedOnlyHotkey;
 		internal static ModHotKey QueryModOriginHotkey;
 		internal static ModHotKey ToggleAutopauseHotkey;
 		internal static ModHotKey SwapArmorVanityHotkey;
+		internal static ModHotKey SwapHotbarHotkey;
 		internal static ModHotKey CyclingQuickMountHotkey;
+		internal static ModHotKey SwitchFrameSkipModeHotkey;
+		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		public HelpfulHotkeys()
 		{
@@ -49,7 +51,7 @@ namespace HelpfulHotkeys
 			CycleAmmoHotKey = RegisterHotKey("Cycle Ammo", "OemPeriod");
 			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
 			SmartQuickStackToChestsHotKey = RegisterHotKey("Smart Quick Stack to Chests", "OemPipe");
-			QuickUseItemHotkey = new ModHotKey[] {
+			QuickUseItemHotkeys = new ModHotKey[] {
 				RegisterHotKey("Quick Use Item #11", "");
 				RegisterHotKey("Quick Use Item #12", "");
 				RegisterHotKey("Quick Use Item #13", "");
@@ -61,11 +63,14 @@ namespace HelpfulHotkeys
 				RegisterHotKey("Quick Use Item #19", "");
 				RegisterHotKey("Quick Use Item #20", "L");
 			};
+			QuickUseConfigItemHotkey = RegisterHotKey("Quick Use Config Item", "");
 			QuickBuffFavoritedOnlyHotkey = RegisterHotKey("Quick Buff Favorited Only", "B");
 			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
 			ToggleAutopauseHotkey = RegisterHotKey("Toggle Autopause", "P");
 			SwapArmorVanityHotkey = RegisterHotKey("Swap Armor with Vanity", "");
+			SwapHotbarHotkey = RegisterHotKey("Swap Hotbar with 1st row", "");
 			CyclingQuickMountHotkey = RegisterHotKey("Cycling Quick Mount", "");
+			SwitchFrameSkipModeHotkey = RegisterHotKey("Switch Frame Skip Mode", "");
 
 			smartStackButtonTextures = new Texture2D[]
 			{
@@ -97,12 +102,15 @@ namespace HelpfulHotkeys
 			CycleAmmoHotKey =
 			QuickStackToChestsHotKey =
 			SmartQuickStackToChestsHotKey =
-			QuickUseItemHotkey =
+			QuickUseItemHotkeys =
+			QuickUseConfigItemHotkey =
 			QuickBuffFavoritedOnlyHotkey =
 			QueryModOriginHotkey =
 			ToggleAutopauseHotkey =
 			SwapArmorVanityHotkey =
-			CyclingQuickMountHotkey = null;
+			SwapHotbarHotkey =
+			CyclingQuickMountHotkey =
+			SwitchFrameSkipModeHotkey = null;
 		}
 
 		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])
@@ -117,13 +125,13 @@ namespace HelpfulHotkeys
 						RecallItems.Add(Convert.ToInt32(args[1]));
 						return "Success";
 					default:
-						ErrorLogger.Log("HelpfulHotkeys: Unknown Message type: " + messageType);
+						Logger.Warn("Unknown Message type: " + messageType);
 						return "Failure";
 				}
 			}
 			catch (Exception e)
 			{
-				ErrorLogger.Log("HelpfulHotkeys Call Error: " + e.StackTrace + e.Message);
+				Logger.Warn("Call Error: " + e.StackTrace + e.Message);
 			}
 			return "Failure";
 		}
@@ -171,7 +179,7 @@ namespace HelpfulHotkeys
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						Main.mouseLeftRelease = false;
-						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>(this);
+						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
 						modPlayer.smartQuickStack();
 						Recipe.FindRecipes();
 					}
@@ -219,7 +227,7 @@ namespace HelpfulHotkeys
 					{
 						return;
 					}
-					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>(this);
+					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>();
 					modPlayer.smartQuickStack();
 					Recipe.FindRecipes();
 				}

@@ -1,18 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
-using System.Collections.Generic;
-using System;
-using System.Reflection;
-using Terraria.Audio;
 
 namespace HelpfulHotkeys
 {
 	public class HelpfulHotkeysPlayer : ModPlayer
 	{
+		internal const int ITEM20 = 19;
 		internal int originalSelectedItem;
 		internal bool autoRevertSelectedItem = false;
 		internal bool autoCycleAmmo = false;
@@ -64,10 +66,12 @@ namespace HelpfulHotkeys
 				SmartQuickStackToChests();
 			}
 			for ( byte i = 11 ; i <= 20 ; i++ ) {
-				if ( HelpfulHotkeys.QuickUseItemHotkey[i].JustPressed )
+				if ( HelpfulHotkeys.QuickUseItemHotkeys[i].JustPressed )
 				{
-					QuickUseItem( i );
+					QuickUseItemAt( i );
 				}
+			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
+				QuickUseConfigItem();
 			}
 			if (HelpfulHotkeys.QuickBuffFavoritedOnlyHotkey.JustPressed)
 			{
@@ -90,9 +94,17 @@ namespace HelpfulHotkeys
 					SwapAccessoriesVanity();
 				}
 			}
+			if (HelpfulHotkeys.SwapHotbarHotkey.JustPressed)
+			{
+				SwapHotbar();
+			}
 			if (HelpfulHotkeys.CyclingQuickMountHotkey.JustPressed)
 			{
 				CyclingQuickMount();
+			}
+			if (HelpfulHotkeys.SwitchFrameSkipModeHotkey.JustPressed) {
+				Main.FrameSkipMode = (Main.FrameSkipMode + 1) % 3;
+				Main.NewText($"Frame Skip Mode is now: {Language.GetTextValue("LegacyMenu." + (247 + Main.FrameSkipMode))}");
 			}
 		}
 
@@ -210,7 +222,7 @@ namespace HelpfulHotkeys
 		public Item QuickMountCycle_GetItemToUse(int lastMount)
 		{
 			bool lastMountFound = false;
-			bool lastMountPassed = false;
+			//bool lastMountPassed = false;
 			Item item = null;
 			if (item == null && player.miscEquips[3].mountType != -1 && !MountID.Sets.Cart[player.miscEquips[3].mountType] && ItemLoader.CanUseItem(player.miscEquips[3], player))
 			{
@@ -453,7 +465,7 @@ namespace HelpfulHotkeys
 				if (hoverBuffID >= BuffID.Count)
 				{
 					ModBuff hoverBuff = BuffLoader.GetBuff(hoverBuffID);
-					Main.NewText("This buff is from: " + hoverBuff.mod.Name);
+					Main.NewText("This buff is from: " + hoverBuff.mod.DisplayName);
 				}
 				else
 				{
@@ -466,31 +478,40 @@ namespace HelpfulHotkeys
 			{
 				if (Main.HoverItem.modItem != null)
 				{
-					Main.NewText("This item is from: " + Main.HoverItem.modItem.mod.Name);
+					Main.NewText("This item is from: " + Main.HoverItem.modItem.mod.DisplayName);
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {Main.HoverItem.modItem.mod.Name}, InternalName: {Main.HoverItem.modItem.Name}, FullName: {Main.HoverItem.modItem.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla item.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ItemID: {ItemID.Search.GetName(Main.HoverItem.type)}, ItemID#: {Main.HoverItem.type}");
 				}
 			}
 
 			// NPC
 			else if (closestNPCDistance < 30)
 			{
-				if (Main.npc[closestNPCIndex].modNPC != null)
+				NPC closestNPC = Main.npc[closestNPCIndex];
+				if (closestNPC.modNPC != null)
 				{
-					Main.NewText("This npc is from: " + Main.npc[closestNPCIndex].modNPC.mod.Name);
+					Main.NewText("This npc is from: " + closestNPC.modNPC.mod.DisplayName);
+					if(HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {closestNPC.modNPC.mod.Name}, InternalName: {closestNPC.modNPC.Name}, FullName: {closestNPC.modNPC.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla npc.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: NPCID: {NPCID.Search.GetName(closestNPC.type)}, NPCID#: {closestNPC.type}");
 				}
 			}
 
 			// Tile
 			else if (Main.tile[mouseTile.X, mouseTile.Y].type >= TileID.Count)
 			{
-				Main.NewText("This tile is from: " + TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type).mod.Name);
+				Main.NewText("This tile is from: " + TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type).mod.DisplayName);
 				//Main.NewText("This tile is active: " + Main.tile[mouseTile.X, mouseTile.Y].active());
 				//Main.NewText("This tile is inactive: " + Main.tile[mouseTile.X, mouseTile.Y].inActive());
 				//Main.NewText("This tile is nactive: " + Main.tile[mouseTile.X, mouseTile.Y].nactive());
@@ -499,7 +520,7 @@ namespace HelpfulHotkeys
 			// Wall
 			else if (Main.tile[mouseTile.X, mouseTile.Y].wall >= WallID.Count)
 			{
-				Main.NewText("This wall is from: " + WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall).mod.Name);
+				Main.NewText("This wall is from: " + WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall).mod.DisplayName);
 			}
 
 			// Item on ground
@@ -507,11 +528,16 @@ namespace HelpfulHotkeys
 			{
 				if (Main.item[closestItemIndex].modItem != null)
 				{
-					Main.NewText("This item is from: " + Main.item[closestItemIndex].modItem.mod.Name);
+					ModItem modItem = Main.item[closestItemIndex].modItem;
+					Main.NewText("This item is from: " + modItem.mod.DisplayName);
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {modItem.mod.Name}, InternalName: {modItem.Name}, FullName: {modItem.GetType().FullName}");
 				}
 				else
 				{
 					Main.NewText("This is a vanilla item.");
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ItemID: {ItemID.Search.GetName(Main.item[closestItemIndex].type)}, ItemID#: {Main.item[closestItemIndex].type}");
 				}
 			}
 
@@ -528,16 +554,33 @@ namespace HelpfulHotkeys
 			Main.NewText("Autopause turned " + (Main.autoPause ? "on" : "off"));
 		}
 
-		public void QuickUseItem( byte slot )
+		public void QuickUseItemAt(int index, bool use = true)
 		{
-			if ( player.inventory[ slot - 1 ].type != 0 )
+			if (!autoRevertSelectedItem && player.selectedItem != index && player.inventory[index].type != 0)
 			{
 				originalSelectedItem = player.selectedItem;
 				autoRevertSelectedItem = true;
-				player.selectedItem = slot - 1;
+				player.selectedItem = index;
 				player.controlUseItem = true;
-				player.ItemCheck(Main.myPlayer);
+				if (use)
+				{
+					player.ItemCheck(Main.myPlayer);
+				}
 			}
+		}
+
+		public void QuickUseConfigItem() {
+			int type = HelpfulHotkeysClientConfig.Instance.QuickUseConfigItem.Type;
+			if(type == 0) {
+				Main.NewText("No item registered for Quick Use Config Item hotkey, please fix.");
+				return;
+			}
+			int index = Main.LocalPlayer.FindItem(type);
+			if (index == -1) {
+				Main.NewText($"Quick Use Config Item \"{Lang.GetItemNameValue(type)}\" not found in inventory.");
+				return;
+			}
+			QuickUseItemAt(index);
 		}
 
 		public void SmartQuickStackToChests()
@@ -588,46 +631,39 @@ namespace HelpfulHotkeys
 			{
 				if (TileLoader.IsTorch(player.inventory[i].createTile))
 				{
-					originalSelectedItem = player.selectedItem;
-					autoRevertSelectedItem = true;
-					player.selectedItem = i;
-					player.controlUseItem = true;
+					QuickUseItemAt(i, use: false);
 					Player.tileTargetX = (int)(player.Center.X / 16);
 					Player.tileTargetY = (int)(player.Center.Y / 16);
-					//player.ItemCheck(Main.myPlayer);
-					//break;
 					int oldstack = player.inventory[player.selectedItem].stack;
 
-					float oldClosest = float.MinValue;
-					bool triedNewPlace = false;
-					do
+					List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
+
+					for (int j = -Player.tileRangeX - player.blockRange + (int)(player.position.X / 16f) + 1; j <= Player.tileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
 					{
-						float closest = float.MaxValue;
-						triedNewPlace = false;
-						for (int j = -Player.tileRangeX - player.blockRange + (int)(player.position.X / 16f); j <= Player.tileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
+						for (int k = -Player.tileRangeY - player.blockRange + (int)(player.position.Y / 16f) + 1; k <= Player.tileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
 						{
-							for (int k = -Player.tileRangeY - player.blockRange + (int)(player.position.Y / 16f); k <= Player.tileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
-							{
-								//ErrorLogger.Log(""+Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)));
-								if (closest > Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)) && oldClosest < Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)))
-								{
-									triedNewPlace = true;
-									//ErrorLogger.Log("closest " + j + " " + k);
-									closest = Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16));
-									Player.tileTargetX = j;
-									Player.tileTargetY = k;
-								}
-							}
+							targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
 						}
-
-						oldClosest = closest; // next round, try farther away from mouse.
-											  //ErrorLogger.Log("closest " + Player.tileTargetX + " " + Player.tileTargetY);
-											  //ErrorLogger.Log("stack " + player.inventory[player.selectedItem].stack);
-						player.ItemCheck(Main.myPlayer);
 					}
-					while (triedNewPlace && oldstack == player.inventory[player.selectedItem].stack);
+					targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 
-					break;
+					bool placeSuccess = false;
+					foreach (var target in targets)
+					{
+						Player.tileTargetX = target.Item2.X;
+						Player.tileTargetY = target.Item2.Y;
+						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+						player.ItemCheck(Main.myPlayer);
+						//Dust.QuickDust(target.Item2, Color.Aqua);
+						int v = player.itemAnimation;
+						if (!original.isTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						{
+							placeSuccess = true;
+							break;
+						}
+					}
+					if (placeSuccess)
+						break;
 
 					//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
 					//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
@@ -643,11 +679,7 @@ namespace HelpfulHotkeys
 			{
 				if (HelpfulHotkeys.RecallItems.Contains(player.inventory[i].type))
 				{
-					originalSelectedItem = player.selectedItem;
-					autoRevertSelectedItem = true;
-					player.selectedItem = i;
-					player.controlUseItem = true;
-					player.ItemCheck(Main.myPlayer);
+					QuickUseItemAt(i);
 					break;
 				}
 			}
@@ -689,7 +721,7 @@ namespace HelpfulHotkeys
 			bool swapHappens = false;
 			for (int slot = 13; slot < 18 + player.extraAccessorySlots; slot++)
 			{
-				if (!player.armor[slot].IsAir && !player.armor[slot].vanity	&& !player.armor[slot - 10].IsAir)
+				if (!player.armor[slot].IsAir && !player.armor[slot].vanity && !player.armor[slot - 10].IsAir)
 				{
 					bool wingPrevent = true;
 					if (player.armor[slot].wingSlot > 0)
@@ -713,6 +745,23 @@ namespace HelpfulHotkeys
 			{
 				Main.PlaySound(SoundID.Grab);
 				Recipe.FindRecipes();
+			}
+		}
+
+		public void SwapHotbar()
+		{
+			bool swapHappens = false;
+			for (int i = 0; i < 10; i++)
+			{
+				if (/*!player.inventory[i].IsAir && */!player.inventory[i + 10].IsAir)
+				{
+					Utils.Swap(ref player.inventory[i], ref player.inventory[i + 10]);
+					swapHappens = true;
+				}
+			}
+			if (swapHappens)
+			{
+				Main.PlaySound(SoundID.Grab);
 			}
 		}
 
