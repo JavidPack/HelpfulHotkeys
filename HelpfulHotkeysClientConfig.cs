@@ -18,6 +18,11 @@ namespace HelpfulHotkeys
 
 		public static HelpfulHotkeysClientConfig Instance;
 
+		[Label("Quick Use Item 11-19 Hotkeys")]
+		[Tooltip("Enable to allow these hotkeys. Keep disabled to keep keybinding menu clean.")]
+		[ReloadRequired]
+		public bool EnableQuickUseItems11to19;
+
 		[Label("Quick Use Config Item")]
 		[Tooltip("Customize the Quick Use Config Item here\nThe specified item can be quickly used from your inventory by pressing the hotkey")]
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);

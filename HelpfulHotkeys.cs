@@ -51,18 +51,12 @@ namespace HelpfulHotkeys
 			CycleAmmoHotKey = RegisterHotKey("Cycle Ammo", "OemPeriod");
 			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
 			SmartQuickStackToChestsHotKey = RegisterHotKey("Smart Quick Stack to Chests", "OemPipe");
-			QuickUseItemHotkeys = new ModHotKey[] {
-				RegisterHotKey("Quick Use Item #11", "");
-				RegisterHotKey("Quick Use Item #12", "");
-				RegisterHotKey("Quick Use Item #13", "");
-				RegisterHotKey("Quick Use Item #14", "");
-				RegisterHotKey("Quick Use Item #15", "");
-				RegisterHotKey("Quick Use Item #16", "");
-				RegisterHotKey("Quick Use Item #17", "");
-				RegisterHotKey("Quick Use Item #18", "");
-				RegisterHotKey("Quick Use Item #19", "");
-				RegisterHotKey("Quick Use Item #20", "L");
-			};
+			QuickUseItemHotkeys = new ModHotKey[10];
+			for (int i = 0; i < 10; i++) {
+				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)
+					continue;
+				QuickUseItemHotkeys[i] = RegisterHotKey($"Quick Use Item #{i + 11}", i == 9 ? "L" : "");
+			}
 			QuickUseConfigItemHotkey = RegisterHotKey("Quick Use Config Item", "");
 			QuickBuffFavoritedOnlyHotkey = RegisterHotKey("Quick Buff Favorited Only", "B");
 			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
@@ -97,12 +91,12 @@ namespace HelpfulHotkeys
 		public override void Unload()
 		{
 			smartStackButtonTextures = null;
+			QuickUseItemHotkeys = null;
 			AutoRecallHotKey =
 			AutoTorchHotKey =
 			CycleAmmoHotKey =
 			QuickStackToChestsHotKey =
 			SmartQuickStackToChestsHotKey =
-			QuickUseItemHotkeys =
 			QuickUseConfigItemHotkey =
 			QuickBuffFavoritedOnlyHotkey =
 			QueryModOriginHotkey =

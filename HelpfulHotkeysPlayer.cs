@@ -65,15 +65,16 @@ namespace HelpfulHotkeys
 			{
 				SmartQuickStackToChests();
 			}
-			for ( byte i = 11 ; i <= 20 ; i++ ) {
-				if ( HelpfulHotkeys.QuickUseItemHotkeys[i].JustPressed )
-				{
-					QuickUseItemAt( i );
+			for (int i = 0; i < 10; i++) {
+				if (HelpfulHotkeys.QuickUseItemHotkeys[i]?.JustPressed == true) {
+					QuickUseItemAt(i + 10);
 				}
-			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) {
+			}
+			if (HelpfulHotkeys.QuickUseConfigItemHotkey.JustPressed) 
+			{
 				QuickUseConfigItem();
 			}
-			if (HelpfulHotkeys.QuickBuffFavoritedOnlyHotkey.JustPressed)
+			if (HelpfulHotkeys.QuickBuffFavoritedOnlyHotkey.JustPressed) 
 			{
 				QuickBuffFavoritedOnly();
 			}
