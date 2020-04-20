@@ -639,9 +639,12 @@ namespace HelpfulHotkeys
 
 					List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
 
-					for (int j = -Player.tileRangeX - player.blockRange + (int)(player.position.X / 16f) + 1; j <= Player.tileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
+					int fixedTileRangeX = Math.Min(Player.tileRangeX, 50);
+					int fixedTileRangeY = Math.Min(Player.tileRangeY, 50);
+
+					for (int j = -fixedTileRangeX - player.blockRange + (int)(player.position.X / 16f) + 1; j <= fixedTileRangeX + player.blockRange - 1 + (int)((player.position.X + player.width) / 16f); j++)
 					{
-						for (int k = -Player.tileRangeY - player.blockRange + (int)(player.position.Y / 16f) + 1; k <= Player.tileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
+						for (int k = -fixedTileRangeY - player.blockRange + (int)(player.position.Y / 16f) + 1; k <= fixedTileRangeY + player.blockRange - 2 + (int)((player.position.Y + player.height) / 16f); k++)
 						{
 							targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
 						}
