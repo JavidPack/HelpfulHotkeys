@@ -467,6 +467,8 @@ namespace HelpfulHotkeys
 				{
 					ModBuff hoverBuff = BuffLoader.GetBuff(hoverBuffID);
 					Main.NewText("This buff is from: " + hoverBuff.mod.DisplayName);
+					if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+						Main.NewText($"Developer Info: ModName: {hoverBuff.mod.Name}, InternalName: {hoverBuff.Name}, FullName: {hoverBuff.GetType().FullName}");
 				}
 				else
 				{
@@ -512,7 +514,10 @@ namespace HelpfulHotkeys
 			// Tile
 			else if (Main.tile[mouseTile.X, mouseTile.Y].type >= TileID.Count)
 			{
-				Main.NewText("This tile is from: " + TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type).mod.DisplayName);
+				ModTile modTile = TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type);
+				Main.NewText("This tile is from: " + modTile.mod.DisplayName);
+				if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+					Main.NewText($"Developer Info: ModName: {modTile.mod.Name}, InternalName: {modTile.Name}, FullName: {modTile.GetType().FullName}");
 				//Main.NewText("This tile is active: " + Main.tile[mouseTile.X, mouseTile.Y].active());
 				//Main.NewText("This tile is inactive: " + Main.tile[mouseTile.X, mouseTile.Y].inActive());
 				//Main.NewText("This tile is nactive: " + Main.tile[mouseTile.X, mouseTile.Y].nactive());
@@ -521,7 +526,10 @@ namespace HelpfulHotkeys
 			// Wall
 			else if (Main.tile[mouseTile.X, mouseTile.Y].wall >= WallID.Count)
 			{
-				Main.NewText("This wall is from: " + WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall).mod.DisplayName);
+				ModWall modWall = WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall);
+				Main.NewText("This wall is from: " + modWall.mod.DisplayName);
+				if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
+					Main.NewText($"Developer Info: ModName: {modWall.mod.Name}, InternalName: {modWall.Name}, FullName: {modWall.GetType().FullName}");
 			}
 
 			// Item on ground
