@@ -31,6 +31,10 @@ namespace HelpfulHotkeys
 		[Tooltip("Enhances the Query Mod Origin hotkey to show internal names of modded items.\nVanilla ID values will also be shown.")]
 		[DefaultValue(false)]
 		public bool ShowDeveloperInfoQueryModOrigin { get; set; }
+
+		[Label("Disable Double Tap Dash Behavior")]
+		[Tooltip("Enable this to prevent the game from recognizing double taps for dashing.\nUse this if you intend to only use the dash hotkey.")]
+		public bool DashHotkeyDisablesDoubleTap;
 	}
 #pragma warning restore 0649
 }

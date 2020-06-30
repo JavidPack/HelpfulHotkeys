@@ -41,3 +41,6 @@ Cycling Quick Mount: No Default
 
 Switch Frame Skip Mode: No Default
     Cycles between frame skip off, on, and subtle.
+
+Dash: No Default
+    Use this if you prefer to dash via a hotkey rather than the double tap method. There is a config option to disable double tap dashing if you want to avoid accidentally dashing the normal way.

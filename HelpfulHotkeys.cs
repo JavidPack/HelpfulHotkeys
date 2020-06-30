@@ -34,6 +34,7 @@ namespace HelpfulHotkeys
 		internal static ModHotKey SwapHotbarHotkey;
 		internal static ModHotKey CyclingQuickMountHotkey;
 		internal static ModHotKey SwitchFrameSkipModeHotkey;
+		internal static ModHotKey DashHotkey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		public HelpfulHotkeys()
@@ -65,6 +66,7 @@ namespace HelpfulHotkeys
 			SwapHotbarHotkey = RegisterHotKey("Swap Hotbar with 1st row", "");
 			CyclingQuickMountHotkey = RegisterHotKey("Cycling Quick Mount", "");
 			SwitchFrameSkipModeHotkey = RegisterHotKey("Switch Frame Skip Mode", "");
+			DashHotkey = RegisterHotKey("Dash", "");
 
 			smartStackButtonTextures = new Texture2D[]
 			{

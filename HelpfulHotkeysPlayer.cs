@@ -109,6 +109,32 @@ namespace HelpfulHotkeys
 			}
 		}
 
+		public override void SetControls() {
+			if (HelpfulHotkeys.DashHotkey.JustPressed) {
+				if (player.controlRight) {
+					player.dashTime = 15;
+					player.releaseRight = true;
+				}
+				else if (player.controlLeft) {
+					player.dashTime = -15;
+					player.releaseLeft = true;
+				}
+				else if (player.direction == 1) {
+					player.dashTime = 15;
+					player.releaseRight = true;
+					player.controlRight = true;
+				}
+				else if (player.direction == -1) {
+					player.dashTime = -15;
+					player.releaseLeft = true;
+					player.controlLeft = true;
+				}
+			}
+			else if (HelpfulHotkeysClientConfig.Instance.DashHotkeyDisablesDoubleTap) {
+				player.dashTime = 0;
+			}
+		}
+
 		// if a mount, unmount and find the next. none found => dismount. unmounted-> mount default
 		private void CyclingQuickMount()
 		{
