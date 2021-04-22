@@ -28,7 +28,7 @@ namespace HelpfulHotkeys
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
 
 		[Label("Show Developer Info")]
-		[Tooltip("Enhances the Query Mod Origin hotkey to show internal names of modded items.\nVanilla ID values will also be shown.")]
+		[Tooltip("Enhances the Query Mod Origin hotkey to show internal names of Modded items.\nVanilla ID values will also be shown.")]
 		[DefaultValue(false)]
 		public bool ShowDeveloperInfoQueryModOrigin { get; set; }
 

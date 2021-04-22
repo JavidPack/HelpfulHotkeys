@@ -8,16 +8,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using Terraria.Audio;
+using Terraria.GameContent;
 
 namespace HelpfulHotkeys
 {
 	public class HelpfulHotkeys : Mod
 	{
-		private Texture2D[] smartStackButtonTextures;
-		private bool smartStackButtonHover;
-		private float smartStackButtonScale;
-		private bool smartStackButtonHovered;
-
 		internal static List<int> RecallItems;
 
 		internal static ModHotKey AutoRecallHotKey;
@@ -68,10 +65,10 @@ namespace HelpfulHotkeys
 			SwitchFrameSkipModeHotkey = RegisterHotKey("Switch Frame Skip Mode", "");
 			DashHotkey = RegisterHotKey("Dash", "");
 
-			smartStackButtonTextures = new Texture2D[]
+			HelpfulHotkeysSystems.smartStackButtonTextures = new Texture2D[]
 			{
-				GetTexture("SmartStack_Off"),
-				GetTexture("SmartStack_On")
+				GetTexture("SmartStack_Off").Value,
+				GetTexture("SmartStack_On").Value
 			};
 
 			RecallItems = new List<int>(new int[]
@@ -92,7 +89,7 @@ namespace HelpfulHotkeys
 
 		public override void Unload()
 		{
-			smartStackButtonTextures = null;
+			HelpfulHotkeysSystems.smartStackButtonTextures = null;
 			QuickUseItemHotkeys = null;
 			AutoRecallHotKey =
 			AutoTorchHotKey =
@@ -131,7 +128,14 @@ namespace HelpfulHotkeys
 			}
 			return "Failure";
 		}
+	}
 
+	public class HelpfulHotkeysSystems : ModSystem
+    {
+		public static Texture2D[] smartStackButtonTextures;
+		private float smartStackButtonScale;
+		private bool smartStackButtonHovered;
+		private bool smartStackButtonHover;
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int vanillaInventoryLayerIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
@@ -168,15 +172,15 @@ namespace HelpfulHotkeys
 					imageChoice = 1;
 					if (!smartStackButtonHover)
 					{
-						Main.PlaySound(SoundID.MenuTick);
+						SoundEngine.PlaySound(SoundID.MenuTick);
 						smartStackButtonHover = true;
 					}
 
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						Main.mouseLeftRelease = false;
-						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
-						modPlayer.smartQuickStack();
+						HelpfulHotkeysPlayer ModPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
+						ModPlayer.smartQuickStack();
 						Recipe.FindRecipes();
 					}
 
@@ -184,7 +188,7 @@ namespace HelpfulHotkeys
 				}
 				else if (smartStackButtonHover)
 				{
-					Main.PlaySound(SoundID.MenuTick);
+					SoundEngine.PlaySound(SoundID.MenuTick);
 					smartStackButtonHover = false;
 				}
 
@@ -198,16 +202,16 @@ namespace HelpfulHotkeys
 			{
 				// 506, Main.instance.invBottom + 40
 				int ID = 7;
-				Player player = Main.player[Main.myPlayer];
-				int Y = Main.instance.invBottom + 40 + ID * 26;
+				Player Player = Main.player[Main.myPlayer];
+				int Y = Main.instance.invBottom + 40 + ID * 29;
 				float num = smartStackButtonScale;
 				string text = "Smart Stack";
-				Vector2 vector = Main.fontMouseText.MeasureString(text);
+				Vector2 vector = FontAssets.MouseText.Value.MeasureString(text);
 				Color baseColor = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor) * num;
 				baseColor = Color.White * 0.97f * (1f - (255f - (float)Main.mouseTextColor) / 255f * 0.5f);
 				baseColor.A = 255;
 				int X = 506 + (int)(vector.X * num / 2f);
-				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, text, new Vector2((float)X, (float)Y), baseColor, 0f, vector / 2f, new Vector2(num), -1f, 1.5f);
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2((float)X, (float)Y), baseColor, 0f, vector / 2f, new Vector2(num), -1f, 1.5f);
 				vector *= num;
 
 				if (!Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0f, 0f, (float)X - vector.X / 2f, (float)Y - vector.Y / 2f, vector.X, vector.Y))
@@ -218,25 +222,24 @@ namespace HelpfulHotkeys
 				UpdateHover(true);
 				if (!PlayerInput.IgnoreMouseInterface)
 				{
-					player.mouseInterface = true;
+					Player.mouseInterface = true;
 					if (!Main.mouseLeft || !Main.mouseLeftRelease)
 					{
 						return;
 					}
-					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>();
-					modPlayer.smartQuickStack();
+					HelpfulHotkeysPlayer ModPlayer = Player.GetModPlayer<HelpfulHotkeysPlayer>();
+					ModPlayer.smartQuickStack();
 					Recipe.FindRecipes();
 				}
 			}
 		}
-
 		public void UpdateHover(bool hovering)
 		{
 			if (hovering)
 			{
 				if (!smartStackButtonHovered)
 				{
-					Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+					SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
 				}
 				smartStackButtonHovered = true;
 				smartStackButtonScale += 0.05f;
