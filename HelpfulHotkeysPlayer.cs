@@ -296,7 +296,7 @@ namespace HelpfulHotkeys
 			}
 		}
 
-		public override bool ConsumeAmmo(Item weapon, Item ammo)
+		public override bool CanConsumeAmmo(Item weapon, Item ammo)
 		{
 			if (autoCycleAmmo)
 			{
@@ -305,7 +305,7 @@ namespace HelpfulHotkeys
 					CycleAmmo();
 				}
 			}
-			return base.ConsumeAmmo(weapon, ammo);
+			return base.CanConsumeAmmo(weapon, ammo);
 		}
 
 		public void QuickBuffFavoritedOnly()
@@ -641,7 +641,7 @@ namespace HelpfulHotkeys
 		public void CycleAmmo()
 		{
 			int indexOfFirst = -1;
-			for (int i = 54; i < 57; i++)
+			for (int i = Main.InventoryAmmoSlotsStart; i < 57; i++)
 			{
 				if (Player.inventory[i].type != ItemID.None)
 				{
@@ -665,53 +665,56 @@ namespace HelpfulHotkeys
 		{
 			for (int i = 0; i < Player.inventory.Length; i++)
 			{
-				if (TileID.Sets.Torch[Player.inventory[i].createTile])
+				int torchTile = Player.inventory[i].createTile;
+				if (torchTile != -1)
 				{
-					QuickUseItemAt(i, use: false);
-					Player.tileTargetX = (int)(Player.Center.X / 16);
-					Player.tileTargetY = (int)(Player.Center.Y / 16);
-					int oldstack = Player.inventory[Player.selectedItem].stack;
-
-					List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
-
-					int fixedTileRangeX = Math.Min(Player.tileRangeX, 50);
-					int fixedTileRangeY = Math.Min(Player.tileRangeY, 50);
-
-					for (int j = -fixedTileRangeX - Player.blockRange + (int)(Player.position.X / 16f) + 1; j <= fixedTileRangeX + Player.blockRange - 1 + (int)((Player.position.X + Player.width) / 16f); j++)
+					if (TileID.Sets.Torch[torchTile])
 					{
-						for (int k = -fixedTileRangeY - Player.blockRange + (int)(Player.position.Y / 16f) + 1; k <= fixedTileRangeY + Player.blockRange - 2 + (int)((Player.position.Y + Player.height) / 16f); k++)
+						QuickUseItemAt(i, use: false);
+						Player.tileTargetX = (int)(Player.Center.X / 16);
+						Player.tileTargetY = (int)(Player.Center.Y / 16);
+						int oldstack = Player.inventory[Player.selectedItem].stack;
+
+						List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
+
+						int fixedTileRangeX = Math.Min(Player.tileRangeX, 50);
+						int fixedTileRangeY = Math.Min(Player.tileRangeY, 50);
+
+						for (int j = -fixedTileRangeX - Player.blockRange + (int)(Player.position.X / 16f) + 1; j <= fixedTileRangeX + Player.blockRange - 1 + (int)((Player.position.X + Player.width) / 16f); j++)
 						{
-							targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
+							for (int k = -fixedTileRangeY - Player.blockRange + (int)(Player.position.Y / 16f) + 1; k <= fixedTileRangeY + Player.blockRange - 2 + (int)((Player.position.Y + Player.height) / 16f); k++)
+							{
+								targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
+							}
 						}
-					}
-					targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+						targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 
-					bool placeSuccess = false;
-					foreach (var target in targets)
-					{
-						Player.tileTargetX = target.Item2.X;
-						Player.tileTargetY = target.Item2.Y;
-						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
-						Player.ItemCheck(Main.myPlayer);
-						//Dust.QuickDust(target.Item2, Color.Aqua);
-						int v = Player.itemAnimation;
-						if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						bool placeSuccess = false;
+						foreach (var target in targets)
 						{
-							placeSuccess = true;
+							Player.tileTargetX = target.Item2.X;
+							Player.tileTargetY = target.Item2.Y;
+							Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+							Player.ItemCheck(Main.myPlayer);
+							//Dust.QuickDust(target.Item2, Color.Aqua);
+							int v = Player.itemAnimation;
+							if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+							{
+								placeSuccess = true;
+								break;
+							}
+						}
+						if (placeSuccess)
 							break;
-						}
-					}
-					if (placeSuccess)
-						break;
 
-					//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
-					//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
-					//	&& this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY 
-					//	&& (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
+						//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
+						//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
+						//	&& this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY 
+						//	&& (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
+					}
 				}
 			}
 		}
-
 		public void AutoRecall()
 		{
 			for (int i = 0; i < Player.inventory.Length; i++)
@@ -790,7 +793,7 @@ namespace HelpfulHotkeys
 		public void SwapHotbar()
 		{
 			bool swapHappens = false;
-			for (int i = 0; i < 10; i++)
+			for (int i = Main.InventoryItemSlotsStart; i < 10; i++)
 			{
 				if (/*!Player.inventory[i].IsAir && */!Player.inventory[i + 10].IsAir)
 				{
@@ -834,10 +837,10 @@ namespace HelpfulHotkeys
 
 				bool itemMoved = false;
 				List<ItemSorting.ItemSortingLayer> layersInThisChest = ItemSorting.GetPassingLayers(items);
-				for (int i = 0; i < 50; i++)
+				for (int i = Main.InventoryItemSlotsStart; i < Main.InventoryItemSlotsCount; i++)
 				{
 					Item item = Player.inventory[i];
-					if (item.type == ItemID.Count || item.favorited || (item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin)) continue;
+					if (item.type <= ItemID.None && item.stack <= 0 && item.favorited && item.IsACoin) continue;
 					foreach (var layer in ItemSorting.layerList)
 					{
 						if (layer.Pass(item))
