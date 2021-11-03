@@ -8,6 +8,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using Terraria.Audio;
+using Terraria.GameContent;
+using ReLogic.Content;
 
 namespace HelpfulHotkeys
 {
@@ -20,58 +23,50 @@ namespace HelpfulHotkeys
 
 		internal static List<int> RecallItems;
 
-		internal static ModHotKey AutoRecallHotKey;
-		internal static ModHotKey AutoTorchHotKey;
-		internal static ModHotKey CycleAmmoHotKey;
-		internal static ModHotKey QuickStackToChestsHotKey;
-		internal static ModHotKey SmartQuickStackToChestsHotKey;
-		internal static ModHotKey[] QuickUseItemHotkeys;
-		internal static ModHotKey QuickUseConfigItemHotkey;
-		internal static ModHotKey QuickBuffFavoritedOnlyHotkey;
-		internal static ModHotKey QueryModOriginHotkey;
-		internal static ModHotKey ToggleAutopauseHotkey;
-		internal static ModHotKey SwapArmorVanityHotkey;
-		internal static ModHotKey SwapHotbarHotkey;
-		internal static ModHotKey CyclingQuickMountHotkey;
-		internal static ModHotKey SwitchFrameSkipModeHotkey;
-		internal static ModHotKey DashHotkey;
+		internal static ModKeybind AutoRecallHotKey;
+		internal static ModKeybind AutoTorchHotKey;
+		internal static ModKeybind CycleAmmoHotKey;
+		internal static ModKeybind QuickStackToChestsHotKey;
+		internal static ModKeybind SmartQuickStackToChestsHotKey;
+		internal static ModKeybind[] QuickUseItemHotkeys;
+		internal static ModKeybind QuickUseConfigItemHotkey;
+		internal static ModKeybind QuickBuffFavoritedOnlyHotkey;
+		internal static ModKeybind QueryModOriginHotkey;
+		internal static ModKeybind ToggleAutopauseHotkey;
+		internal static ModKeybind SwapArmorVanityHotkey;
+		internal static ModKeybind SwapHotbarHotkey;
+		internal static ModKeybind CyclingQuickMountHotkey;
+		internal static ModKeybind SwitchFrameSkipModeHotkey;
+		internal static ModKeybind DashHotkey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
-
-		public HelpfulHotkeys()
-		{
-			Properties = new ModProperties()
-			{
-				Autoload = true,
-			};
-		}
 
 		public override void Load()
 		{
-			AutoRecallHotKey = RegisterHotKey("Auto Recall", "Home");
-			AutoTorchHotKey = RegisterHotKey("Auto Torch", "OemTilde");
-			CycleAmmoHotKey = RegisterHotKey("Cycle Ammo", "OemPeriod");
-			QuickStackToChestsHotKey = RegisterHotKey("Quick Stack to Chests", "OemMinus");
-			SmartQuickStackToChestsHotKey = RegisterHotKey("Smart Quick Stack to Chests", "OemPipe");
-			QuickUseItemHotkeys = new ModHotKey[10];
+			AutoRecallHotKey = KeybindLoader.RegisterKeybind(this, "Auto Recall", "Home") ;
+			AutoTorchHotKey = KeybindLoader.RegisterKeybind(this, "Auto Torch", "OemTilde");
+			CycleAmmoHotKey = KeybindLoader.RegisterKeybind(this, "Cycle Ammo", "OemPeriod");
+			QuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "Quick Stack to Chests", "OemMinus");
+			SmartQuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "Smart Quick Stack to Chests", "OemPipe");
+			QuickUseItemHotkeys = new ModKeybind[10];
 			for (int i = 0; i < 10; i++) {
 				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)
 					continue;
-				QuickUseItemHotkeys[i] = RegisterHotKey($"Quick Use Item #{i + 11}", i == 9 ? "L" : "");
+				QuickUseItemHotkeys[i] = KeybindLoader.RegisterKeybind(this, $"Quick Use Item #{i + 11}", i == 9 ?"L" : "Z");
 			}
-			QuickUseConfigItemHotkey = RegisterHotKey("Quick Use Config Item", "");
-			QuickBuffFavoritedOnlyHotkey = RegisterHotKey("Quick Buff Favorited Only", "B");
-			QueryModOriginHotkey = RegisterHotKey("Query Mod Origin", "OemQuestion");
-			ToggleAutopauseHotkey = RegisterHotKey("Toggle Autopause", "P");
-			SwapArmorVanityHotkey = RegisterHotKey("Swap Armor with Vanity", "");
-			SwapHotbarHotkey = RegisterHotKey("Swap Hotbar with 1st row", "");
-			CyclingQuickMountHotkey = RegisterHotKey("Cycling Quick Mount", "");
-			SwitchFrameSkipModeHotkey = RegisterHotKey("Switch Frame Skip Mode", "");
-			DashHotkey = RegisterHotKey("Dash", "");
+			QuickUseConfigItemHotkey = KeybindLoader.RegisterKeybind(this, "Quick Use Config Item", "Z");
+			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "Quick Buff Favorited Only", "B");
+			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "Query Mod Origin", "OemQuestion");
+			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "Toggle Autopause", "P");
+			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Vanity", "Z");
+			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "Swap Hotbar with 1st row", "Z");
+			CyclingQuickMountHotkey = KeybindLoader.RegisterKeybind(this, "Cycling Quick Mount", "Z");
+			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "Switch Frame Skip Mode", "Z");
+			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
 
 			smartStackButtonTextures = new Texture2D[]
 			{
-				GetTexture("SmartStack_Off"),
-				GetTexture("SmartStack_On")
+				ModContent.Request<Texture2D>("HelpfulHotkeys/SmartStack_Off", AssetRequestMode.ImmediateLoad).Value,
+				ModContent.Request<Texture2D>("HelpfulHotkeys/SmartStack_On", AssetRequestMode.ImmediateLoad).Value
 			};
 
 			RecallItems = new List<int>(new int[]
@@ -132,7 +127,8 @@ namespace HelpfulHotkeys
 			return "Failure";
 		}
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+
+		public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int vanillaInventoryLayerIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (vanillaInventoryLayerIndex != -1)
@@ -168,15 +164,15 @@ namespace HelpfulHotkeys
 					imageChoice = 1;
 					if (!smartStackButtonHover)
 					{
-						Main.PlaySound(SoundID.MenuTick);
+						SoundEngine.PlaySound(SoundID.MenuTick);
 						smartStackButtonHover = true;
 					}
 
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						Main.mouseLeftRelease = false;
-						HelpfulHotkeysPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
-						modPlayer.smartQuickStack();
+						HelpfulHotkeysPlayer ModPlayer = Main.LocalPlayer.GetModPlayer<HelpfulHotkeysPlayer>();
+						ModPlayer.smartQuickStack();
 						Recipe.FindRecipes();
 					}
 
@@ -184,7 +180,7 @@ namespace HelpfulHotkeys
 				}
 				else if (smartStackButtonHover)
 				{
-					Main.PlaySound(SoundID.MenuTick);
+					SoundEngine.PlaySound(SoundID.MenuTick);
 					smartStackButtonHover = false;
 				}
 
@@ -198,16 +194,16 @@ namespace HelpfulHotkeys
 			{
 				// 506, Main.instance.invBottom + 40
 				int ID = 7;
-				Player player = Main.player[Main.myPlayer];
-				int Y = Main.instance.invBottom + 40 + ID * 26;
+				Player Player = Main.player[Main.myPlayer];
+				int Y = Main.instance.invBottom + 40 + ID * 29;
 				float num = smartStackButtonScale;
 				string text = "Smart Stack";
-				Vector2 vector = Main.fontMouseText.MeasureString(text);
+				Vector2 vector = FontAssets.MouseText.Value.MeasureString(text);
 				Color baseColor = new Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor) * num;
 				baseColor = Color.White * 0.97f * (1f - (255f - (float)Main.mouseTextColor) / 255f * 0.5f);
 				baseColor.A = 255;
 				int X = 506 + (int)(vector.X * num / 2f);
-				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, text, new Vector2((float)X, (float)Y), baseColor, 0f, vector / 2f, new Vector2(num), -1f, 1.5f);
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2((float)X, (float)Y), baseColor, 0f, vector / 2f, new Vector2(num), -1f, 1.5f);
 				vector *= num;
 
 				if (!Utils.FloatIntersect((float)Main.mouseX, (float)Main.mouseY, 0f, 0f, (float)X - vector.X / 2f, (float)Y - vector.Y / 2f, vector.X, vector.Y))
@@ -218,25 +214,24 @@ namespace HelpfulHotkeys
 				UpdateHover(true);
 				if (!PlayerInput.IgnoreMouseInterface)
 				{
-					player.mouseInterface = true;
+					Player.mouseInterface = true;
 					if (!Main.mouseLeft || !Main.mouseLeftRelease)
 					{
 						return;
 					}
-					HelpfulHotkeysPlayer modPlayer = player.GetModPlayer<HelpfulHotkeysPlayer>();
-					modPlayer.smartQuickStack();
+					HelpfulHotkeysPlayer ModPlayer = Player.GetModPlayer<HelpfulHotkeysPlayer>();
+					ModPlayer.smartQuickStack();
 					Recipe.FindRecipes();
 				}
 			}
 		}
-
 		public void UpdateHover(bool hovering)
 		{
 			if (hovering)
 			{
 				if (!smartStackButtonHovered)
 				{
-					Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+					SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
 				}
 				smartStackButtonHovered = true;
 				smartStackButtonScale += 0.05f;
@@ -256,5 +251,10 @@ namespace HelpfulHotkeys
 				}
 			}
 		}
+	}
+
+	public class HelpfulHotkeysSystems : ModSystem
+	{
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => ModContent.GetInstance<HelpfulHotkeys>().ModifyInterfaceLayers(layers);
 	}
 }

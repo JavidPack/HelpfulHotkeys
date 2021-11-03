@@ -1,7 +1,7 @@
 ﻿Adds helpful hotkeys. Change hotkey assignments in Settings/Mod Controls.
 
 Cycle Ammo: Defaults to the Period key.
-    Cycles the ammo in the ammo slots. Quickly switch ammo to adapt to situations. Hold for 1 second to enable/disable Auto Cycle Ammo mode. In Auto Cycle Ammo mode, ammo is cycled each time ammo would be used.
+    Cycles the ammo in the ammo slots. Quickly switch ammo to adapt to situations. Hold for 1 second to enable/disable Auto Cycle Ammo Mode. In Auto Cycle Ammo Mode, ammo is cycled each time ammo would be used.
 
 Auto Torch: Defaults to the Tilde/Backtick key.
     Automatically places a torch from your inventory in the world as close to the mouse cursor as possible. Great for placing torches quickly while exploring without worrying about aiming the mouse to find a suitable wall or tile to attach to.
@@ -19,7 +19,7 @@ Quick Buff Favorited Only: Defaults to B (You'll want to remap the original Quic
     Just like Quick Buff, but only attempts to use the potions that have been favorited (Alt-click). No longer need you fight bosses with Sonar, Fishing, Crate, Spelunker, etc potions.
 
 Query Mod Origin: Defaults to the /? button
-    Hover over an item, NPC, buff, tile, or wall and a message will tell you which mod the thing came from.
+    Hover over an item, NPC, buff, tile, or wall and a message will tell you which Mod the thing came from.
 
 Toggle Autopause: Defaults to P
     Toggles the autopause setting. 
