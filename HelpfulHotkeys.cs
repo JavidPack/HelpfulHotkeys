@@ -16,6 +16,11 @@ namespace HelpfulHotkeys
 {
 	public class HelpfulHotkeys : Mod
 	{
+		private Texture2D[] smartStackButtonTextures;
+		private bool smartStackButtonHover;
+		private float smartStackButtonScale;
+		private bool smartStackButtonHovered;
+
 		internal static List<int> RecallItems;
 
 		internal static ModKeybind AutoRecallHotKey;
@@ -58,7 +63,7 @@ namespace HelpfulHotkeys
 			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "Switch Frame Skip Mode", "Z");
 			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
 
-			HelpfulHotkeysSystems.smartStackButtonTextures = new Texture2D[]
+			smartStackButtonTextures = new Texture2D[]
 			{
 				ModContent.Request<Texture2D>("HelpfulHotkeys/SmartStack_Off", AssetRequestMode.ImmediateLoad).Value,
 				ModContent.Request<Texture2D>("HelpfulHotkeys/SmartStack_On", AssetRequestMode.ImmediateLoad).Value
@@ -82,7 +87,7 @@ namespace HelpfulHotkeys
 
 		public override void Unload()
 		{
-			HelpfulHotkeysSystems.smartStackButtonTextures = null;
+			smartStackButtonTextures = null;
 			QuickUseItemHotkeys = null;
 			AutoRecallHotKey =
 			AutoTorchHotKey =
@@ -121,15 +126,9 @@ namespace HelpfulHotkeys
 			}
 			return "Failure";
 		}
-	}
 
-	public class HelpfulHotkeysSystems : ModSystem
-    {
-		public static Texture2D[] smartStackButtonTextures;
-		private float smartStackButtonScale;
-		private bool smartStackButtonHovered;
-		private bool smartStackButtonHover;
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+
+		public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int vanillaInventoryLayerIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (vanillaInventoryLayerIndex != -1)
@@ -252,5 +251,10 @@ namespace HelpfulHotkeys
 				}
 			}
 		}
+	}
+
+	public class HelpfulHotkeysSystems : ModSystem
+	{
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => ModContent.GetInstance<HelpfulHotkeys>().ModifyInterfaceLayers(layers);
 	}
 }

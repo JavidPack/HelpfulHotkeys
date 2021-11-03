@@ -592,6 +592,7 @@ namespace HelpfulHotkeys
 
 		public void QuickUseItemAt(int index, bool use = true)
 		{
+			// TODO: As of 1.4, this doesn't seem to honor not activating while an item is already in use.
 			if (!autoRevertSelectedItem && Player.selectedItem != index && Player.inventory[index].type != ItemID.None)
 			{
 				originalSelectedItem = Player.selectedItem;
@@ -666,52 +667,49 @@ namespace HelpfulHotkeys
 			for (int i = 0; i < Player.inventory.Length; i++)
 			{
 				int torchTile = Player.inventory[i].createTile;
-				if (torchTile != -1)
+				if (torchTile != -1 && TileID.Sets.Torch[torchTile])
 				{
-					if (TileID.Sets.Torch[torchTile])
+					QuickUseItemAt(i, use: false);
+					Player.tileTargetX = (int)(Player.Center.X / 16);
+					Player.tileTargetY = (int)(Player.Center.Y / 16);
+					int oldstack = Player.inventory[Player.selectedItem].stack;
+
+					List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
+
+					int fixedTileRangeX = Math.Min(Player.tileRangeX, 50);
+					int fixedTileRangeY = Math.Min(Player.tileRangeY, 50);
+
+					for (int j = -fixedTileRangeX - Player.blockRange + (int)(Player.position.X / 16f) + 1; j <= fixedTileRangeX + Player.blockRange - 1 + (int)((Player.position.X + Player.width) / 16f); j++)
 					{
-						QuickUseItemAt(i, use: false);
-						Player.tileTargetX = (int)(Player.Center.X / 16);
-						Player.tileTargetY = (int)(Player.Center.Y / 16);
-						int oldstack = Player.inventory[Player.selectedItem].stack;
-
-						List<Tuple<float, Point>> targets = new List<Tuple<float, Point>>();
-
-						int fixedTileRangeX = Math.Min(Player.tileRangeX, 50);
-						int fixedTileRangeY = Math.Min(Player.tileRangeY, 50);
-
-						for (int j = -fixedTileRangeX - Player.blockRange + (int)(Player.position.X / 16f) + 1; j <= fixedTileRangeX + Player.blockRange - 1 + (int)((Player.position.X + Player.width) / 16f); j++)
+						for (int k = -fixedTileRangeY - Player.blockRange + (int)(Player.position.Y / 16f) + 1; k <= fixedTileRangeY + Player.blockRange - 2 + (int)((Player.position.Y + Player.height) / 16f); k++)
 						{
-							for (int k = -fixedTileRangeY - Player.blockRange + (int)(Player.position.Y / 16f) + 1; k <= fixedTileRangeY + Player.blockRange - 2 + (int)((Player.position.Y + Player.height) / 16f); k++)
-							{
-								targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
-							}
+							targets.Add(new Tuple<float, Point>(Vector2.Distance(Main.MouseWorld, new Vector2(j * 16, k * 16)), new Point(j, k)));
 						}
-						targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
-
-						bool placeSuccess = false;
-						foreach (var target in targets)
-						{
-							Player.tileTargetX = target.Item2.X;
-							Player.tileTargetY = target.Item2.Y;
-							Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
-							Player.ItemCheck(Main.myPlayer);
-							//Dust.QuickDust(target.Item2, Color.Aqua);
-							int v = Player.itemAnimation;
-							if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
-							{
-								placeSuccess = true;
-								break;
-							}
-						}
-						if (placeSuccess)
-							break;
-
-						//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
-						//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
-						//	&& this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY 
-						//	&& (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
 					}
+					targets.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+
+					bool placeSuccess = false;
+					foreach (var target in targets)
+					{
+						Player.tileTargetX = target.Item2.X;
+						Player.tileTargetY = target.Item2.Y;
+						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+						Player.ItemCheck(Main.myPlayer);
+						//Dust.QuickDust(target.Item2, Color.Aqua);
+						int v = Player.itemAnimation;
+						if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						{
+							placeSuccess = true;
+							break;
+						}
+					}
+					if (placeSuccess)
+						break;
+
+					//if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX 
+					//	&& (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX 
+					//	&& this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY 
+					//	&& (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
 				}
 			}
 		}
@@ -915,6 +913,7 @@ namespace HelpfulHotkeys
 
 							}
 
+							// TODO: Double check if this code is correct/works
 							if (Main.netMode == NetmodeID.MultiplayerClient)
 							{
 								for (int l = Main.InventoryItemSlotsStart + 10; l < Main.InventoryItemSlotsCount; l++)
