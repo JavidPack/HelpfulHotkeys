@@ -61,7 +61,7 @@ namespace HelpfulHotkeys
 			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Vanity", "Z");
 			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "Swap Hotbar with 1st row", "Z");
 			CyclingQuickMountHotkey = KeybindLoader.RegisterKeybind(this, "Cycling Quick Mount", "Z");
-			HoldMountHotkey = KeybindLoader.RegisterKeybind(this, "Hold Mount", "Z");
+			HoldMountHotkey = KeybindLoader.RegisterKeybind(this, "Quick Mount - Hold", "Z");
 			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "Switch Frame Skip Mode", "Z");
 			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
 
