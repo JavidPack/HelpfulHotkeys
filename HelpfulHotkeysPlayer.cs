@@ -104,6 +104,13 @@ namespace HelpfulHotkeys
 			{
 				CyclingQuickMount();
 			}
+			if (HelpfulHotkeys.HoldMountHotkey.JustPressed) {
+				if (!Player.mount.Active)
+					Player.QuickMount();
+			} else if (HelpfulHotkeys.HoldMountHotkey.JustReleased) {
+				if (Player.mount.Active)
+					Player.mount.Dismount(Player);
+			}
 			if (HelpfulHotkeys.SwitchFrameSkipModeHotkey.JustPressed) {
 				Main.FrameSkipMode = (Main.FrameSkipMode + 1) % 3;
 				Main.NewText($"Frame Skip Mode is now: {Language.GetTextValue("LegacyMenu." + (247 + Main.FrameSkipMode))}");
@@ -838,7 +845,8 @@ namespace HelpfulHotkeys
 				for (int i = Main.InventoryItemSlotsStart; i < Main.InventoryItemSlotsCount; i++)
 				{
 					Item item = Player.inventory[i];
-					if (item.type <= ItemID.None && item.stack <= 0 && item.favorited && item.IsACoin) continue;
+					// TODO: filter out Unloaded item from here and all other usages of this snippet.
+					if (item.IsAir || item.favorited || item.IsACoin) continue;
 					foreach (var layer in ItemSorting.layerList)
 					{
 						if (layer.Pass(item))
@@ -895,7 +903,7 @@ namespace HelpfulHotkeys
 						for (int i = Main.InventoryItemSlotsStart + 10; i < Main.InventoryItemSlotsCount; i++)
 						{
 							Item item = Player.inventory[i];
-							if (item.type <= ItemID.None && item.stack <= 0 && item.favorited && item.IsACoin) continue;
+							if (item.IsAir || item.favorited || item.IsACoin) continue;
 							foreach (var layer in ItemSorting.layerList)
 							{
 								if (layer.Pass(item))
@@ -918,7 +926,7 @@ namespace HelpfulHotkeys
 							{
 								for (int l = Main.InventoryItemSlotsStart + 10; l < Main.InventoryItemSlotsCount; l++)
 								{
-									if (item.type > ItemID.None && item.stack > 0 && !item.favorited && !item.IsACoin)
+									if (!item.IsAir && !item.favorited && !item.IsACoin)
 									{
 										NetMessage.SendData(MessageID.SyncEquipment, -1, -1, null, Player.whoAmI, l, (int)item.prefix);
 										NetMessage.SendData(MessageID.QuickStackChests, -1, -1, null, l);
