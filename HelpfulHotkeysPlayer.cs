@@ -853,7 +853,7 @@ namespace HelpfulHotkeys
 						{
 							if (layersInThisChest.Contains(layer))
 							{
-								itemMoved |= ChestUI.TryPlacingInChest(item, false);
+								itemMoved |= ChestUI.TryPlacingInChest(item, false, ItemSlot.Context.InventoryItem /* Unused, but I think this makes sense. */);
 								break;
 							}
 							else
@@ -910,7 +910,7 @@ namespace HelpfulHotkeys
 								{
 									if (layersInThisChest.Contains(layer))
 									{
-										itemMoved |= ChestUI.TryPlacingInChest(item, false);
+										itemMoved |= ChestUI.TryPlacingInChest(item, false, ItemSlot.Context.InventoryItem /* Unused, but I think this makes sense. */);
 										break;
 									}
 									else
