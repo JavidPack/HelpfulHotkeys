@@ -187,7 +187,7 @@ namespace HelpfulHotkeys
 					{
 						Point point2 = tilesIn[i];
 						Tile tileSafely = Framing.GetTileSafely(point2.X, point2.Y);
-						if (tileSafely.IsActive && tileSafely.type == 314)
+						if (tileSafely.HasTile && tileSafely.TileType == 314)
 						{
 							Vector2 vector = tilesIn[i].ToVector2() * 16f + new Vector2(8f);
 							if (!point.HasValue || (Player.Distance(vector) < Player.Distance(point.Value.ToVector2() * 16f + new Vector2(8f)) && Collision.CanHitLine(Player.Center, 0, 0, vector, 0, 0)))
@@ -235,7 +235,7 @@ namespace HelpfulHotkeys
 					{
 						Point point4 = tilesIn2[j];
 						Tile tileSafely2 = Framing.GetTileSafely(point4.X, point4.Y);
-						if (tileSafely2.IsActive && tileSafely2.type == 314)
+						if (tileSafely2.HasTile && tileSafely2.TileType == 314)
 						{
 							Vector2 vector2 = tilesIn2[j].ToVector2() * 16f + new Vector2(8f);
 							if (!point3.HasValue || (Player.Distance(vector2) < Player.Distance(point3.Value.ToVector2() * 16f + new Vector2(8f)) && Collision.CanHitLine(Player.Center, 0, 0, vector2, 0, 0)))
@@ -546,9 +546,9 @@ namespace HelpfulHotkeys
 			}
 
 			// Tile
-			else if (Main.tile[mouseTile.X, mouseTile.Y].type >= TileID.Count)
+			else if (Main.tile[mouseTile.X, mouseTile.Y].TileType >= TileID.Count)
 			{
-				ModTile ModTile = TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].type);
+				ModTile ModTile = TileLoader.GetTile(Main.tile[mouseTile.X, mouseTile.Y].TileType);
 				Main.NewText("This tile is from: " + ModTile.Mod.DisplayName);
 				if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
 					Main.NewText($"Developer Info: ModName: {ModTile.Mod.Name}, InternalName: {ModTile.Name}, FullName: {ModTile.GetType().FullName}");
@@ -558,9 +558,9 @@ namespace HelpfulHotkeys
 			}
 
 			// Wall
-			else if (Main.tile[mouseTile.X, mouseTile.Y].wall >= WallID.Count)
+			else if (Main.tile[mouseTile.X, mouseTile.Y].WallType >= WallID.Count)
 			{
-				ModWall ModWall = WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].wall);
+				ModWall ModWall = WallLoader.GetWall(Main.tile[mouseTile.X, mouseTile.Y].WallType);
 				Main.NewText("This wall is from: " + ModWall.Mod.DisplayName);
 				if (HelpfulHotkeysClientConfig.Instance.ShowDeveloperInfoQueryModOrigin)
 					Main.NewText($"Developer Info: ModName: {ModWall.Mod.Name}, InternalName: {ModWall.Name}, FullName: {ModWall.GetType().FullName}");
@@ -700,11 +700,16 @@ namespace HelpfulHotkeys
 					{
 						Player.tileTargetX = target.Item2.X;
 						Player.tileTargetY = target.Item2.Y;
-						Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+						// Reminder: Recent tile changes mean that tile instances don't hold actual data.
+						//Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
+						Tile original = Main.tile[Player.tileTargetX, Player.tileTargetY];
+						var tileDataBefore = (original.TileType, original.WallType, original.HasTile);
 						Player.ItemCheck(Main.myPlayer);
+						var tileDataAfter = (original.TileType, original.WallType, original.HasTile);
 						//Dust.QuickDust(target.Item2, Color.Aqua);
 						int v = Player.itemAnimation;
-						if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						//if (!original.IsTheSameAs(Main.tile[Player.tileTargetX, Player.tileTargetY]))
+						if(tileDataBefore != tileDataAfter)
 						{
 							placeSuccess = true;
 							break;
