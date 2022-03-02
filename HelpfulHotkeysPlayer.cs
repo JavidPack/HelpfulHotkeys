@@ -112,7 +112,7 @@ namespace HelpfulHotkeys
 					Player.mount.Dismount(Player);
 			}
 			if (HelpfulHotkeys.SwitchFrameSkipModeHotkey.JustPressed) {
-				Main.FrameSkipMode = (Main.FrameSkipMode + 1) % 3;
+				Main.CycleFrameSkipMode();
 				Main.NewText($"Frame Skip Mode is now: {Language.GetTextValue("LegacyMenu." + (247 + Main.FrameSkipMode))}");
 			}
 		}
