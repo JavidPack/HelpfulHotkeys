@@ -33,6 +33,7 @@ namespace HelpfulHotkeys
 		internal static ModKeybind QuickBuffFavoritedOnlyHotkey;
 		internal static ModKeybind QueryModOriginHotkey;
 		internal static ModKeybind ToggleAutopauseHotkey;
+		internal static ModKeybind SwapArmorInventoryHotkey;
 		internal static ModKeybind SwapArmorVanityHotkey;
 		internal static ModKeybind SwapHotbarHotkey;
 		internal static ModKeybind CyclingQuickMountHotkey;
@@ -58,6 +59,7 @@ namespace HelpfulHotkeys
 			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "Quick Buff Favorited Only", "B");
 			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "Query Mod Origin", "OemQuestion");
 			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "Toggle Autopause", "P");
+			SwapArmorInventoryHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Inventory", "Z");
 			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Vanity", "Z");
 			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "Swap Hotbar with 1st row", "Z");
 			CyclingQuickMountHotkey = KeybindLoader.RegisterKeybind(this, "Cycling Quick Mount", "Z");
@@ -234,7 +236,7 @@ namespace HelpfulHotkeys
 			{
 				if (!smartStackButtonHovered)
 				{
-					SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+					SoundEngine.PlaySound(SoundID.MenuTick);
 				}
 				smartStackButtonHovered = true;
 				smartStackButtonScale += 0.05f;

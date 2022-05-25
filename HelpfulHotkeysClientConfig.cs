@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Terraria.ModLoader.Config;
 using System.Runtime.Serialization;
 using Terraria.ID;
+using System.Collections.Generic;
 
 namespace HelpfulHotkeys
 {
@@ -26,6 +27,10 @@ namespace HelpfulHotkeys
 		[Label("Quick Use Config Item")]
 		[Tooltip("Customize the Quick Use Config Item here\nThe specified item can be quickly used from your inventory by pressing the hotkey")]
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
+
+		[Label("Swap Armor with Inventory Slots")]
+		[Tooltip("Customize the Swap Armor with Inventory slots here\nCount from 0. Use value from 0 to 49.\nDefault values correspond to lower right slots in the inventory.")]
+		public List<int> SwapArmorInventorySlots = new List<int>() { 29, 39, 49 };
 
 		[Label("Show Developer Info")]
 		[Tooltip("Enhances the Query Mod Origin hotkey to show internal names of Modded items.\nVanilla ID values will also be shown.")]

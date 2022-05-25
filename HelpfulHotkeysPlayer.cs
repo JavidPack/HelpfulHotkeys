@@ -83,6 +83,9 @@ namespace HelpfulHotkeys
 			{
 				ToggleAutoPause();
 			}
+			if (HelpfulHotkeys.SwapArmorInventoryHotkey.JustPressed) { 
+				SwapArmorInventory();
+			}
 			if (HelpfulHotkeys.SwapArmorVanityHotkey.JustPressed)
 			{
 				SwapArmorVanity();
@@ -159,7 +162,7 @@ namespace HelpfulHotkeys
 					ItemLoader.UseItem(nextMountItem, Player);
 					if (nextMountItem.UseSound != null)
 					{
-						SoundEngine.PlaySound(nextMountItem.UseSound, Player.Center);
+						SoundEngine.PlaySound(nextMountItem.UseSound.Value, Player.Center);
 						return;
 					}
 				}
@@ -210,7 +213,7 @@ namespace HelpfulHotkeys
 					ItemLoader.UseItem(item, Player);
 					if (item.UseSound != null)
 					{
-						SoundEngine.PlaySound(item.UseSound, Player.Center);
+						SoundEngine.PlaySound(item.UseSound.Value, Player.Center);
 						return;
 					}
 				}
@@ -321,7 +324,7 @@ namespace HelpfulHotkeys
 			{
 				return;
 			}
-			LegacySoundStyle legacySoundStyle = null;
+			SoundStyle? legacySoundStyle = null;
 			for (int i = 0; i < 58; i++)
 			{
 				if (this.Player.CountBuffs() == 22)
@@ -429,7 +432,7 @@ namespace HelpfulHotkeys
 			}
 			if (legacySoundStyle != null)
 			{
-				SoundEngine.PlaySound(legacySoundStyle, Player.position);
+				SoundEngine.PlaySound(legacySoundStyle.Value, Player.position);
 				Recipe.FindRecipes();
 			}
 		}
@@ -737,6 +740,44 @@ namespace HelpfulHotkeys
 			}
 		}
 
+		public void SwapArmorInventory() {
+			bool swapHappens = false;
+
+			//var armorIndexes = new int[] { 10, 11, 12 };
+			//var inventoryIndexes = new int[] { 29, 39, 49 };
+
+			var inventoryIndexes = HelpfulHotkeysClientConfig.Instance.SwapArmorInventorySlots;
+
+			foreach (var inventoryIndex in inventoryIndexes) {
+				if (inventoryIndex < 0 || inventoryIndex > 49)
+					continue;
+			//for (int i = 0; i < 3; i++) {
+				//ref Item armorItem = ref Player.armor[armorIndexes[i]];
+				ref Item inventoryItem = ref Player.inventory[inventoryIndex];
+				//if (((armorItem.type > ItemID.None && armorItem.stack > 0 && !armorItem.vanity)
+				//	&& (inventoryItem.type > ItemID.None && inventoryItem.stack > 0))) {
+				//	Utils.Swap(ref armorItem, ref inventoryItem);
+				//	swapHappens = true;
+				//}
+				int original = inventoryItem.type;
+				if (!inventoryItem.IsAir && inventoryItem.maxStack == 1) {
+					// private ItemSlot.ArmorSwap()
+					// check not bunch of things
+					if (inventoryItem.headSlot != -1 || inventoryItem.bodySlot != -1 || inventoryItem.legSlot != -1) {
+						ItemSlot.SwapEquip(Player.inventory, ItemSlot.Context.InventoryItem, inventoryIndex);
+						if (original != inventoryItem.type)
+							swapHappens = true;
+					}
+				}
+				// Can support accessories as well, but they won't swap out in mass.
+			}
+
+			if (swapHappens) {
+				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes();
+			}
+		}
+
 		public void SwapArmorVanity()
 		{
 			bool swapHappens = false;
@@ -871,7 +912,7 @@ namespace HelpfulHotkeys
 				}
 				if (itemMoved)
 				{
-					SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0f);
+					SoundEngine.PlaySound(SoundID.Grab);
 				}
 			}
 			else
@@ -947,7 +988,7 @@ namespace HelpfulHotkeys
 			}
 			if (itemMoved)
 			{
-				SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0f);
+				SoundEngine.PlaySound(SoundID.Grab);
 			}
 			Player.chest = -1;
 		}
