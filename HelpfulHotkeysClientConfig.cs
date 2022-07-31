@@ -40,6 +40,10 @@ namespace HelpfulHotkeys
 		[Label("Disable Double Tap Dash Behavior")]
 		[Tooltip("Enable this to prevent the game from recognizing double taps for dashing.\nUse this if you intend to only use the dash hotkey.")]
 		public bool DashHotkeyDisablesDoubleTap;
+
+		[Label("Disable Dash Hotkey While Using Chest")]
+		[Tooltip("Enable this to prevent the dash hotkey from working while in a chest.\nUse this if your dash hotkey would conflict with chest operations, like shift, alt, or ctrl.")]
+		public bool DashHotkeyDisabledWhileInChest;
 	}
 #pragma warning restore 0649
 }

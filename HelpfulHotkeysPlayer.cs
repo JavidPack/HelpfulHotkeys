@@ -121,7 +121,7 @@ namespace HelpfulHotkeys
 		}
 
 		public override void SetControls() {
-			if (HelpfulHotkeys.DashHotkey.JustPressed) {
+			if (HelpfulHotkeys.DashHotkey.JustPressed && (!HelpfulHotkeysClientConfig.Instance.DashHotkeyDisabledWhileInChest || Player.chest == -1)) {
 				if (Player.controlRight) {
 					Player.dashTime = 15;
 					Player.releaseRight = true;
