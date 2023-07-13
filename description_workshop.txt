@@ -1,3 +1,5 @@
+[img]https://i.imgur.com/W2c5CX6.gif[/img]
+
 Adds helpful hotkeys. Change hotkey assignments in Settings/Mod Controls.
 
 Cycle Ammo: Defaults to the Period key.
