@@ -1,87 +1,87 @@
 Mods: {
 	HelpfulHotkeys: {
 		Keybinds: {
-			// AutoRecall.DisplayName: Auto Recall
-			// AutoTorch.DisplayName: Auto Torch
-			// CycleAmmo.DisplayName: Cycle Ammo
-			// QuickStackToChests.DisplayName: Quick Stack to Chests
-			// SmartQuickStackToChests.DisplayName: Smart Quick Stack to Chests
-			// QuickUseItem11.DisplayName: Quick Use Item #11
-			// QuickUseItem12.DisplayName: Quick Use Item #12
-			// QuickUseItem13.DisplayName: Quick Use Item #13
-			// QuickUseItem14.DisplayName: Quick Use Item #14
-			// QuickUseItem15.DisplayName: Quick Use Item #15
-			// QuickUseItem16.DisplayName: Quick Use Item #16
-			// QuickUseItem17.DisplayName: Quick Use Item #17
-			// QuickUseItem18.DisplayName: Quick Use Item #18
-			// QuickUseItem19.DisplayName: Quick Use Item #19
-			// QuickUseItem20.DisplayName: Quick Use Item #20
-			// QuickUseConfigItem.DisplayName: Quick Use Config Item
-			// QuickBuffFavoritedOnly.DisplayName: Quick Buff Favorited Only
-			// QueryModOrigin.DisplayName: Query Mod Origin
-			// ToggleAutopause.DisplayName: Toggle Autopause
-			// SwapArmorWithInventory.DisplayName: Swap Armor with Inventory
-			// SwapArmorWithVanity.DisplayName: Swap Armor with Vanity
-			// SwapHotbarWith1stRow.DisplayName: Swap Hotbar with 1st Row
-			// CyclingQuickMount.DisplayName: Cycling Quick Mount
-			// QuickMountHold.DisplayName: Quick Mount - Hold
-			// SwitchFrameSkipMode.DisplayName: Switch Frame Skip Mode
-			// Dash.DisplayName: Dash
+			AutoRecall.DisplayName: Автоматический возврат
+			AutoTorch.DisplayName: Автоматическая установка факела
+			CycleAmmo.DisplayName: Смена боеприпасов
+			QuickStackToChests.DisplayName: Быстрая стопка в ближайшие сундуки
+			SmartQuickStackToChests.DisplayName: Умная быстрая стопка в ближайшие сундуки
+			QuickUseItem11.DisplayName: Быстрое использование предмета №11
+			QuickUseItem12.DisplayName: Быстрое использование предмета #12
+			QuickUseItem13.DisplayName: Быстрое использование предмета #13
+			QuickUseItem14.DisplayName: Быстрое использование предмета #14
+			QuickUseItem15.DisplayName: Быстрое использование предмета #15
+			QuickUseItem16.DisplayName: Быстрое использование предмета #16
+			QuickUseItem17.DisplayName: Быстрое использование предмета #17
+			QuickUseItem18.DisplayName: Быстрое использование предмета #18
+			QuickUseItem19.DisplayName: Быстрое использование предмета #19
+			QuickUseItem20.DisplayName: Быстрое использование предмета #20
+			QuickUseConfigItem.DisplayName: Быстрое использование предмета из конфигурации
+			QuickBuffFavoritedOnly.DisplayName: Быстрый бафф (Только избранные)
+			QueryModOrigin.DisplayName: Запрос происхождения мода
+			ToggleAutopause.DisplayName: Вкл/откл авто-паузу
+			SwapArmorWithInventory.DisplayName: Поменять местами броню с заданных слотов инвентаря
+			SwapArmorWithVanity.DisplayName: Поменять местами броню и украшения
+			SwapHotbarWith1stRow.DisplayName: Поменять местами панель быстрого доступа с 1-й строкой инвентаря
+			CyclingQuickMount.DisplayName: Быстро поменять ездового питомца
+			QuickMountHold.DisplayName: Быстрая смена питомца — удерживайте
+			SwitchFrameSkipMode.DisplayName: Переключение режима пропуска кадров
+			Dash.DisplayName: Рывок
 		}
 
 		Configs: {
 			HelpfulHotkeysClientConfig: {
-				// DisplayName: Config
+				DisplayName: Config
 
 				EnableQuickUseItems11to19: {
-					// Label: Quick Use Item 11-19 Hotkeys
-					// Tooltip: Enable to allow these hotkeys. Keep disabled to keep keybinding menu clean.
+					Label: Быстрое использование предмета 11-19 горячих клавиш
+					Tooltip: Включите, чтобы разрешить эти горячие клавиши.
 				}
 
 				SwapArmorInventorySlots: {
-					// Label: Swap Armor with Inventory Slots
-					/* Tooltip:
+					Label: Обмен брони с ячейками инвентаря
+					Tooltip:
 						'''
-						Customize the Swap Armor with Inventory slots here
-						Count from 0. Use value from 0 to 49.
-						Default values correspond to lower right slots in the inventory.
-						''' */
+						Настройте сменную броню с помощью слотов инвентаря здесь
+						Считайте от 0. Используйте значение от 0 до 49.
+						Значения по умолчанию соответствуют нижним правым слотам в инвентаре.
+						'''
 				}
 
 				DashHotkeyDisablesDoubleTap: {
-					// Label: Disable Double Tap Dash Behavior
-					/* Tooltip:
+					Label: Отключить рывок при двойном нажатии
+					Tooltip:
 						'''
-						Enable this to prevent the game from recognizing double taps for dashing.
-						Use this if you intend to only use the dash hotkey.
-						''' */
+						Включите это, чтобы игра не распознавала двойное нажатие для рывка.
+						Используйте это, если вы собираетесь использовать только горячую клавишу для рывка.
+						'''
 				}
 
 				DashHotkeyDisabledWhileInChest: {
-					// Label: Disable Dash Hotkey While Using Chest
-					/* Tooltip:
+					Label: Отключить горячую клавишу Dash при использовании сундука
+					Tooltip:
 						'''
-						Enable this to prevent the dash hotkey from working while in a chest.
-						Use this if your dash hotkey would conflict with chest operations, like shift, alt, or ctrl.
-						''' */
+						Включите это, чтобы горячая клавиша рывка не работала в сундуке.
+						Используйте это, если ваша горячая клавиша рывка будет конфликтовать с сундуками, такими как Shift, Alt или Ctrl.
+						'''
 				}
 
 				QuickUseConfigItem: {
-					// Label: Quick Use Config Item
-					/* Tooltip:
+					Label: Быстрое использование предмета конфигурации
+					Tooltip:
 						'''
-						Customize the Quick Use Config Item here
-						The specified item can be quickly used from your inventory by pressing the hotkey
-						''' */
+						Настройте предмет конфигурации быстрого использования здесь
+						Указанный предмет можно быстро использовать из своего инвентаря, нажав горячую клавишу
+						'''
 				}
 
 				ShowDeveloperInfoQueryModOrigin: {
-					// Label: Show Developer Info
-					/* Tooltip:
+					Label: Show Developer Info
+					Tooltip:
 						'''
-						Enhances the Query Mod Origin hotkey to show internal names of Modded items.
-						Vanilla ID values will also be shown.
-						''' */
+						Горячая клавиша "Query Mod Origin" для отображения имен предметов из мода.
+						Также будут показаны значения Vanilla ID.
+						'''
 				}
 			}
 		}
