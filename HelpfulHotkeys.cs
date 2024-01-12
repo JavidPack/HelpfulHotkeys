@@ -79,6 +79,10 @@ namespace HelpfulHotkeys
 				ItemID.IceMirror,
 				ItemID.CellPhone,
 				ItemID.RecallPotion
+    				ItemID.Shellphone
+				ItemID.ShellphoneSpawn
+    				ItemID.ShellphoneOcean
+				ItemID.ShellphoneHell
 			});
 
 			/*var loadModsField = Assembly.GetCallingAssembly().GetType("Terraria.ModLoader.Interface").GetField("loadMods", BindingFlags.Static | BindingFlags.NonPublic);
