@@ -78,10 +78,10 @@ namespace HelpfulHotkeys
 				ItemID.MagicMirror,
 				ItemID.IceMirror,
 				ItemID.CellPhone,
-				ItemID.RecallPotion
-    				ItemID.Shellphone
-				ItemID.ShellphoneSpawn
-    				ItemID.ShellphoneOcean
+				ItemID.RecallPotion,
+				ItemID.Shellphone,
+				ItemID.ShellphoneSpawn,
+				ItemID.ShellphoneOcean,
 				ItemID.ShellphoneHell
 			});
 
