@@ -85,6 +85,7 @@ namespace HelpfulHotkeys
 				ItemID.IceMirror,
 				ItemID.CellPhone,
 				ItemID.RecallPotion,
+				ItemID.PotionOfReturn,
 				ItemID.Shellphone,
 				ItemID.ShellphoneSpawn,
 				ItemID.ShellphoneOcean,
