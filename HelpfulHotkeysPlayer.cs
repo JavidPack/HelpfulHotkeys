@@ -19,6 +19,7 @@ namespace HelpfulHotkeys
 		internal const int ITEM20 = 19;
 		internal int originalSelectedItem;
 		internal bool autoRevertSelectedItem = false;
+		internal bool pendingQuickUse = false;
 		internal bool autoCycleAmmo = false;
 
 		private int CycleAmmoHotkeyHeldTime;
@@ -304,14 +305,28 @@ namespace HelpfulHotkeys
 			return lastMountFound ? item : null;
 		}
 
+		public bool PlayerCanSwitchItems => Player.itemAnimation == 0 && Player.ItemTimeIsZero && Player.reuseDelay == 0;
+
 		public override void PostUpdate()
 		{
 			if (autoRevertSelectedItem)
 			{
-				if (Player.itemTime == 0 && Player.itemAnimation == 0)
+				// Here we detect nonTorch/selectItemOnNextUse taking effect. 
+				if (Player.selectedItem != originalSelectedItem && Player.controlUseItem) {
+					pendingQuickUse = false;
+				}
+				if (PlayerCanSwitchItems)
 				{
-					Player.selectedItem = originalSelectedItem;
-					autoRevertSelectedItem = false;
+					// If nonTorch/selectItemOnNextUse switched selected item but it wasn't used, force use.
+					if (pendingQuickUse && Player.selectedItem != originalSelectedItem) {
+						Player.controlUseItem = true;
+						Player.ItemCheck();
+					}
+					else { 
+						Player.selectedItem = originalSelectedItem;
+						autoRevertSelectedItem = false;
+					}
+					pendingQuickUse = false;
 				}
 			}
 		}
@@ -618,16 +633,22 @@ namespace HelpfulHotkeys
 
 		public void QuickUseItemAt(int index, bool use = true)
 		{
-			// TODO: As of 1.4, this doesn't seem to honor not activating while an item is already in use.
 			if (!autoRevertSelectedItem && Player.selectedItem != index && Player.inventory[index].type != ItemID.None)
 			{
 				originalSelectedItem = Player.selectedItem;
 				autoRevertSelectedItem = true;
-				Player.selectedItem = index;
-				Player.controlUseItem = true;
-				if (use)
-				{
-					Player.ItemCheck();
+				if (PlayerCanSwitchItems) {
+					Player.selectedItem = index;
+					Player.controlUseItem = true;
+					if (use) {
+						Player.ItemCheck();
+					}
+				}
+				else {
+					// Should be used next time item can be used.
+					Player.nonTorch = index;
+					Player.selectItemOnNextUse = true;
+					pendingQuickUse = true;
 				}
 			}
 		}
