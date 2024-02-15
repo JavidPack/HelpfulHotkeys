@@ -24,6 +24,9 @@ Query Mod Origin: Defaults to the /? button
 Toggle Autopause: Defaults to P
     Toggles the autopause setting. 
 
+Toggle Run in Background: Defaults to Backspace
+    Allows the game to continue running when not the active window. 
+
 Quick Use Item #20: Defaults to L
     Use the item in slot 20. (2nd row, far right. Most useful for Rod of Discord and Money Trough)
 

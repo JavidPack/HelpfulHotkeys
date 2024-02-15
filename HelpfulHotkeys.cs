@@ -64,7 +64,7 @@ namespace HelpfulHotkeys
 			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "QuickBuffFavoritedOnly", "B");
 			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "QueryModOrigin", "OemQuestion");
 			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "ToggleAutopause", "P");
-			ToggleRunInBackgroundHotkey = KeybindLoader.RegisterKeybind(this, "Toggle Run in Background", "Backspace");
+			ToggleRunInBackgroundHotkey = KeybindLoader.RegisterKeybind(this, "ToggleRunInBackground", "Back");
 			SwapArmorInventoryHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithInventory", "Z");
 			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithVanity", "Z");
 			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "SwapHotbarWith1stRow", "Z");
@@ -87,8 +87,8 @@ namespace HelpfulHotkeys
 				ItemID.RecallPotion
 			});
 
-			On.Terraria.Main.CanPauseGame += CanPauseGame;
-			IL.Terraria.Main.DoUpdate += MainDoUpdateHasFocus;
+			Terraria.On_Main.CanPauseGame += CanPauseGame;
+			Terraria.IL_Main.DoUpdate += MainDoUpdateHasFocus;
 			/*var loadModsField = Assembly.GetCallingAssembly().GetType("Terraria.ModLoader.Interface").GetField("loadMods", BindingFlags.Static | BindingFlags.NonPublic);
 			Main.instance.LoadNPC(NPCID.MoonLordHead);
 			var face = new Terraria.GameContent.UI.Elements.UIImage(Main.npcTexture[NPCID.MoonLordHead]);
@@ -99,28 +99,27 @@ namespace HelpfulHotkeys
 		}
 
 		private void MainDoUpdateHasFocus(ILContext il) {
-		    try {
-    		    ILCursor c = new(il);
+			try {
+				ILCursor c = new(il);
 
-            #region Main.HasFocus set
-						//IL_083D: stsfld    bool Terraria.Main::hasFocus
+				#region Main.HasFocus set
+				//IL_083D: stsfld    bool Terraria.Main::hasFocus
 
-            int index = -1;
-            if (!c.TryGotoNext(MoveType.Before, i => i.MatchStsfld(typeof(Main), nameof(Main.hasFocus))))
-            {
-                return;
-            }
+				int index = -1;
+				if (!c.TryGotoNext(MoveType.Before, i => i.MatchStsfld(typeof(Main), nameof(Main.hasFocus)))) {
+					return;
+				}
 
-            c.EmitDelegate(() => RunInBackground);
-            c.Emit(OpCodes.Or);
-            #endregion
+				c.EmitDelegate(() => RunInBackground);
+				c.Emit(OpCodes.Or);
+				#endregion
 
-        }
-        catch (Exception e) {
-            Logger.Error(e.Message);
-            return;
-        }
-    }
+			}
+			catch (Exception e) {
+				Logger.Error(e.Message);
+				return;
+			}
+		}
 
 		public override void Unload()
 		{
@@ -141,18 +140,16 @@ namespace HelpfulHotkeys
 			CyclingQuickMountHotkey =
 			HoldMountHotkey =
 			SwitchFrameSkipModeHotkey = null;
-
-			On.Terraria.Main.CanPauseGame -= CanPauseGame;
-			IL.Terraria.Main.DoUpdate -= MainDoUpdateHasFocus;
 		}
 
-		public static bool CanPauseGame(On.Terraria.Main.orig_CanPauseGame orig)
+		public static bool CanPauseGame(On_Main.orig_CanPauseGame orig)
 		{
 			if (RunInBackground)
 				return false;
 
 			return orig();
 		}
+
 		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])
 		public override object Call(params object[] args)
 		{

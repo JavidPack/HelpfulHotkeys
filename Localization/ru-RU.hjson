@@ -27,6 +27,7 @@ Mods: {
 			QuickMountHold.DisplayName: Быстрая смена питомца — удерживайте
 			SwitchFrameSkipMode.DisplayName: Переключение режима пропуска кадров
 			Dash.DisplayName: Рывок
+			// ToggleRunInBackground.DisplayName: Toggle Run in Background
 		}
 
 		Configs: {

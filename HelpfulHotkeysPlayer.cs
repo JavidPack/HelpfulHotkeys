@@ -33,7 +33,7 @@ namespace HelpfulHotkeys
 
 		public override void UpdateAutopause()
 		{
-				ProcessTriggers(null);
+			ProcessTriggers(null);
 		}
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
@@ -613,7 +613,7 @@ namespace HelpfulHotkeys
 		public void ToggleRunInBackground()
 		{
 			HelpfulHotkeys.RunInBackground = !HelpfulHotkeys.RunInBackground;
-			Main.NewText($"Run in Background was {(HelpfulHotkeys.RunInBackground ? "enabled" : "disaled")}.");
+			Main.NewText($"Run in Background was {(HelpfulHotkeys.RunInBackground ? "enabled" : "disabled")}.");
 		}
 
 		public void QuickUseItemAt(int index, bool use = true)
