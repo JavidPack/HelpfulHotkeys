@@ -1,0 +1,9 @@
+en-US, 39/39, 100%, missing 0
+de-DE, 0/39, 0%, missing 39
+it-IT, 0/39, 0%, missing 39
+fr-FR, 0/39, 0%, missing 39
+es-ES, 0/39, 0%, missing 39
+ru-RU, 39/39, 100%, missing 0
+zh-Hans, 0/39, 0%, missing 39
+pt-BR, 0/39, 0%, missing 39
+pl-PL, 0/39, 0%, missing 39

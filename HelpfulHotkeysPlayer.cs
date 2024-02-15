@@ -10,6 +10,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.GameContent;
+using Terraria.DataStructures;
 
 namespace HelpfulHotkeys
 {
@@ -626,7 +627,7 @@ namespace HelpfulHotkeys
 				Player.controlUseItem = true;
 				if (use)
 				{
-					Player.ItemCheck(Main.myPlayer);
+					Player.ItemCheck();
 				}
 			}
 		}
@@ -655,7 +656,7 @@ namespace HelpfulHotkeys
 		{
 			if (Player.chest != -1)
 			{
-				ChestUI.QuickStack();
+				ChestUI.QuickStack(ContainerTransferContext.FromUnknown(Player)); // TODO: is this right?
 			}
 			else
 			{
@@ -689,6 +690,7 @@ namespace HelpfulHotkeys
 
 		public void AutoTorch()
 		{
+			// TODO: Should this behave like the 1.4 torch placement?
 			for (int i = 0; i < Player.inventory.Length; i++)
 			{
 				int torchTile = Player.inventory[i].createTile;
@@ -722,7 +724,7 @@ namespace HelpfulHotkeys
 						//Tile original = (Tile)Main.tile[Player.tileTargetX, Player.tileTargetY].Clone();
 						Tile original = Main.tile[Player.tileTargetX, Player.tileTargetY];
 						var tileDataBefore = (original.TileType, original.WallType, original.HasTile);
-						Player.ItemCheck(Main.myPlayer);
+						Player.ItemCheck();
 						var tileDataAfter = (original.TileType, original.WallType, original.HasTile);
 						//Dust.QuickDust(target.Item2, Color.Aqua);
 						int v = Player.itemAnimation;
@@ -875,6 +877,7 @@ namespace HelpfulHotkeys
 
 		internal void smartQuickStack()
 		{
+			// TODO: Fix sorts for 1.4.4. Find out how to use sort to chest animation to fly items to chests.
 			if (Player.chest != -1)
 			{
 				// check this chest for categories, then stack all items that fit those categories into this chest.

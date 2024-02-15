@@ -49,28 +49,28 @@ namespace HelpfulHotkeys
 
 		public override void Load()
 		{
-			AutoRecallHotKey = KeybindLoader.RegisterKeybind(this, "Auto Recall", "Home") ;
-			AutoTorchHotKey = KeybindLoader.RegisterKeybind(this, "Auto Torch", "OemTilde");
-			CycleAmmoHotKey = KeybindLoader.RegisterKeybind(this, "Cycle Ammo", "OemPeriod");
-			QuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "Quick Stack to Chests", "OemMinus");
-			SmartQuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "Smart Quick Stack to Chests", "OemPipe");
+			AutoRecallHotKey = KeybindLoader.RegisterKeybind(this, "AutoRecall", "Home") ;
+			AutoTorchHotKey = KeybindLoader.RegisterKeybind(this, "AutoTorch", "OemTilde");
+			CycleAmmoHotKey = KeybindLoader.RegisterKeybind(this, "CycleAmmo", "OemPeriod");
+			QuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "QuickStackToChests", "OemMinus");
+			SmartQuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "SmartQuickStackToChests", "OemPipe");
 			QuickUseItemHotkeys = new ModKeybind[10];
 			for (int i = 0; i < 10; i++) {
 				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)
 					continue;
-				QuickUseItemHotkeys[i] = KeybindLoader.RegisterKeybind(this, $"Quick Use Item #{i + 11}", i == 9 ?"L" : "Z");
+				QuickUseItemHotkeys[i] = KeybindLoader.RegisterKeybind(this, $"QuickUseItem{i + 11}", i == 9 ?"L" : "Z");
 			}
-			QuickUseConfigItemHotkey = KeybindLoader.RegisterKeybind(this, "Quick Use Config Item", "Z");
-			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "Quick Buff Favorited Only", "B");
-			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "Query Mod Origin", "OemQuestion");
-			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "Toggle Autopause", "P");
+			QuickUseConfigItemHotkey = KeybindLoader.RegisterKeybind(this, "QuickUseConfigItem", "Z");
+			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "QuickBuffFavoritedOnly", "B");
+			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "QueryModOrigin", "OemQuestion");
+			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "ToggleAutopause", "P");
 			ToggleRunInBackgroundHotkey = KeybindLoader.RegisterKeybind(this, "Toggle Run in Background", "Backspace");
-			SwapArmorInventoryHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Inventory", "Z");
-			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "Swap Armor with Vanity", "Z");
-			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "Swap Hotbar with 1st row", "Z");
-			CyclingQuickMountHotkey = KeybindLoader.RegisterKeybind(this, "Cycling Quick Mount", "Z");
-			HoldMountHotkey = KeybindLoader.RegisterKeybind(this, "Quick Mount - Hold", "Z");
-			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "Switch Frame Skip Mode", "Z");
+			SwapArmorInventoryHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithInventory", "Z");
+			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithVanity", "Z");
+			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "SwapHotbarWith1stRow", "Z");
+			CyclingQuickMountHotkey = KeybindLoader.RegisterKeybind(this, "CyclingQuickMount", "Z");
+			HoldMountHotkey = KeybindLoader.RegisterKeybind(this, "QuickMountHold", "Z");
+			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "SwitchFrameSkipMode", "Z");
 			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
 
 			smartStackButtonTextures = new Texture2D[]

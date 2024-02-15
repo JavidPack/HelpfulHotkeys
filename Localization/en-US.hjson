@@ -1,0 +1,89 @@
+Mods: {
+	HelpfulHotkeys: {
+		Keybinds: {
+			AutoRecall.DisplayName: Auto Recall
+			AutoTorch.DisplayName: Auto Torch
+			CycleAmmo.DisplayName: Cycle Ammo
+			QuickStackToChests.DisplayName: Quick Stack to Chests
+			SmartQuickStackToChests.DisplayName: Smart Quick Stack to Chests
+			QuickUseItem11.DisplayName: Quick Use Item #11
+			QuickUseItem12.DisplayName: Quick Use Item #12
+			QuickUseItem13.DisplayName: Quick Use Item #13
+			QuickUseItem14.DisplayName: Quick Use Item #14
+			QuickUseItem15.DisplayName: Quick Use Item #15
+			QuickUseItem16.DisplayName: Quick Use Item #16
+			QuickUseItem17.DisplayName: Quick Use Item #17
+			QuickUseItem18.DisplayName: Quick Use Item #18
+			QuickUseItem19.DisplayName: Quick Use Item #19
+			QuickUseItem20.DisplayName: Quick Use Item #20
+			QuickUseConfigItem.DisplayName: Quick Use Config Item
+			QuickBuffFavoritedOnly.DisplayName: Quick Buff Favorited Only
+			QueryModOrigin.DisplayName: Query Mod Origin
+			ToggleAutopause.DisplayName: Toggle Autopause
+			SwapArmorWithInventory.DisplayName: Swap Armor with Inventory
+			SwapArmorWithVanity.DisplayName: Swap Armor with Vanity
+			SwapHotbarWith1stRow.DisplayName: Swap Hotbar with 1st Row
+			CyclingQuickMount.DisplayName: Cycling Quick Mount
+			QuickMountHold.DisplayName: Quick Mount - Hold
+			SwitchFrameSkipMode.DisplayName: Switch Frame Skip Mode
+			Dash.DisplayName: Dash
+		}
+
+		Configs: {
+			HelpfulHotkeysClientConfig: {
+				DisplayName: Config
+
+				EnableQuickUseItems11to19: {
+					Label: Quick Use Item 11-19 Hotkeys
+					Tooltip: Enable to allow these hotkeys. Keep disabled to keep keybinding menu clean.
+				}
+
+				SwapArmorInventorySlots: {
+					Label: Swap Armor with Inventory Slots
+					Tooltip:
+						'''
+						Customize the Swap Armor with Inventory slots here
+						Count from 0. Use value from 0 to 49.
+						Default values correspond to lower right slots in the inventory.
+						'''
+				}
+
+				DashHotkeyDisablesDoubleTap: {
+					Label: Disable Double Tap Dash Behavior
+					Tooltip:
+						'''
+						Enable this to prevent the game from recognizing double taps for dashing.
+						Use this if you intend to only use the dash hotkey.
+						'''
+				}
+
+				DashHotkeyDisabledWhileInChest: {
+					Label: Disable Dash Hotkey While Using Chest
+					Tooltip:
+						'''
+						Enable this to prevent the dash hotkey from working while in a chest.
+						Use this if your dash hotkey would conflict with chest operations, like shift, alt, or ctrl.
+						'''
+				}
+
+				QuickUseConfigItem: {
+					Label: Quick Use Config Item
+					Tooltip:
+						'''
+						Customize the Quick Use Config Item here
+						The specified item can be quickly used from your inventory by pressing the hotkey
+						'''
+				}
+
+				ShowDeveloperInfoQueryModOrigin: {
+					Label: Show Developer Info
+					Tooltip:
+						'''
+						Enhances the Query Mod Origin hotkey to show internal names of Modded items.
+						Vanilla ID values will also be shown.
+						'''
+				}
+			}
+		}
+	}
+}

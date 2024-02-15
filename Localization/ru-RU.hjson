@@ -1,0 +1,89 @@
+Mods: {
+	HelpfulHotkeys: {
+		Keybinds: {
+			AutoRecall.DisplayName: Автоматический возврат
+			AutoTorch.DisplayName: Автоматическая установка факела
+			CycleAmmo.DisplayName: Смена боеприпасов
+			QuickStackToChests.DisplayName: Быстрая стопка в ближайшие сундуки
+			SmartQuickStackToChests.DisplayName: Умная быстрая стопка в ближайшие сундуки
+			QuickUseItem11.DisplayName: Быстрое использование предмета №11
+			QuickUseItem12.DisplayName: Быстрое использование предмета #12
+			QuickUseItem13.DisplayName: Быстрое использование предмета #13
+			QuickUseItem14.DisplayName: Быстрое использование предмета #14
+			QuickUseItem15.DisplayName: Быстрое использование предмета #15
+			QuickUseItem16.DisplayName: Быстрое использование предмета #16
+			QuickUseItem17.DisplayName: Быстрое использование предмета #17
+			QuickUseItem18.DisplayName: Быстрое использование предмета #18
+			QuickUseItem19.DisplayName: Быстрое использование предмета #19
+			QuickUseItem20.DisplayName: Быстрое использование предмета #20
+			QuickUseConfigItem.DisplayName: Быстрое использование предмета из конфигурации
+			QuickBuffFavoritedOnly.DisplayName: Быстрый бафф (Только избранные)
+			QueryModOrigin.DisplayName: Запрос происхождения мода
+			ToggleAutopause.DisplayName: Вкл/откл авто-паузу
+			SwapArmorWithInventory.DisplayName: Поменять местами броню с заданных слотов инвентаря
+			SwapArmorWithVanity.DisplayName: Поменять местами броню и украшения
+			SwapHotbarWith1stRow.DisplayName: Поменять местами панель быстрого доступа с 1-й строкой инвентаря
+			CyclingQuickMount.DisplayName: Быстро поменять ездового питомца
+			QuickMountHold.DisplayName: Быстрая смена питомца — удерживайте
+			SwitchFrameSkipMode.DisplayName: Переключение режима пропуска кадров
+			Dash.DisplayName: Рывок
+		}
+
+		Configs: {
+			HelpfulHotkeysClientConfig: {
+				DisplayName: Config
+
+				EnableQuickUseItems11to19: {
+					Label: Быстрое использование предмета 11-19 горячих клавиш
+					Tooltip: Включите, чтобы разрешить эти горячие клавиши.
+				}
+
+				SwapArmorInventorySlots: {
+					Label: Обмен брони с ячейками инвентаря
+					Tooltip:
+						'''
+						Настройте сменную броню с помощью слотов инвентаря здесь
+						Считайте от 0. Используйте значение от 0 до 49.
+						Значения по умолчанию соответствуют нижним правым слотам в инвентаре.
+						'''
+				}
+
+				DashHotkeyDisablesDoubleTap: {
+					Label: Отключить рывок при двойном нажатии
+					Tooltip:
+						'''
+						Включите это, чтобы игра не распознавала двойное нажатие для рывка.
+						Используйте это, если вы собираетесь использовать только горячую клавишу для рывка.
+						'''
+				}
+
+				DashHotkeyDisabledWhileInChest: {
+					Label: Отключить горячую клавишу Dash при использовании сундука
+					Tooltip:
+						'''
+						Включите это, чтобы горячая клавиша рывка не работала в сундуке.
+						Используйте это, если ваша горячая клавиша рывка будет конфликтовать с сундуками, такими как Shift, Alt или Ctrl.
+						'''
+				}
+
+				QuickUseConfigItem: {
+					Label: Быстрое использование предмета конфигурации
+					Tooltip:
+						'''
+						Настройте предмет конфигурации быстрого использования здесь
+						Указанный предмет можно быстро использовать из своего инвентаря, нажав горячую клавишу
+						'''
+				}
+
+				ShowDeveloperInfoQueryModOrigin: {
+					Label: Show Developer Info
+					Tooltip:
+						'''
+						Горячая клавиша "Query Mod Origin" для отображения имен предметов из мода.
+						Также будут показаны значения Vanilla ID.
+						'''
+				}
+			}
+		}
+	}
+}

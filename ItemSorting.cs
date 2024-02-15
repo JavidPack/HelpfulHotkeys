@@ -22,6 +22,7 @@ namespace HelpfulHotkeys
 
 			public bool Pass(Item item)
 			{
+				// TODO: Bug? This isn't unloaded item anymore
 				return (item.type != ItemID.Count) && !item.IsAir && SortingMethod(item);
 			}
 
