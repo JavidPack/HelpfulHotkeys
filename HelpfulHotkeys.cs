@@ -11,6 +11,8 @@ using Terraria.UI.Chat;
 using Terraria.Audio;
 using Terraria.GameContent;
 using ReLogic.Content;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 
 namespace HelpfulHotkeys
 {
@@ -33,6 +35,7 @@ namespace HelpfulHotkeys
 		internal static ModKeybind QuickBuffFavoritedOnlyHotkey;
 		internal static ModKeybind QueryModOriginHotkey;
 		internal static ModKeybind ToggleAutopauseHotkey;
+		internal static ModKeybind ToggleRunInBackgroundHotkey;
 		internal static ModKeybind SwapArmorInventoryHotkey;
 		internal static ModKeybind SwapArmorVanityHotkey;
 		internal static ModKeybind SwapHotbarHotkey;
@@ -41,6 +44,8 @@ namespace HelpfulHotkeys
 		internal static ModKeybind SwitchFrameSkipModeHotkey;
 		internal static ModKeybind DashHotkey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
+
+		internal static bool RunInBackground = false;
 
 		public override void Load()
 		{
@@ -59,6 +64,7 @@ namespace HelpfulHotkeys
 			QuickBuffFavoritedOnlyHotkey = KeybindLoader.RegisterKeybind(this, "QuickBuffFavoritedOnly", "B");
 			QueryModOriginHotkey = KeybindLoader.RegisterKeybind(this, "QueryModOrigin", "OemQuestion");
 			ToggleAutopauseHotkey = KeybindLoader.RegisterKeybind(this, "ToggleAutopause", "P");
+			ToggleRunInBackgroundHotkey = KeybindLoader.RegisterKeybind(this, "ToggleRunInBackground", "Back");
 			SwapArmorInventoryHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithInventory", "Z");
 			SwapArmorVanityHotkey = KeybindLoader.RegisterKeybind(this, "SwapArmorWithVanity", "Z");
 			SwapHotbarHotkey = KeybindLoader.RegisterKeybind(this, "SwapHotbarWith1stRow", "Z");
@@ -85,12 +91,38 @@ namespace HelpfulHotkeys
 				ItemID.ShellphoneHell
 			});
 
+			Terraria.On_Main.CanPauseGame += CanPauseGame;
+			Terraria.IL_Main.DoUpdate += MainDoUpdateHasFocus;
 			/*var loadModsField = Assembly.GetCallingAssembly().GetType("Terraria.ModLoader.Interface").GetField("loadMods", BindingFlags.Static | BindingFlags.NonPublic);
 			Main.instance.LoadNPC(NPCID.MoonLordHead);
 			var face = new Terraria.GameContent.UI.Elements.UIImage(Main.npcTexture[NPCID.MoonLordHead]);
 			face.HAlign = 0.5f;
 			face.VAlign = 0.5f;
 			(loadModsField.GetValue(null) as UIState).Append(face);*/
+
+		}
+
+		private void MainDoUpdateHasFocus(ILContext il) {
+			try {
+				ILCursor c = new(il);
+
+				#region Main.HasFocus set
+				//IL_083D: stsfld    bool Terraria.Main::hasFocus
+
+				int index = -1;
+				if (!c.TryGotoNext(MoveType.Before, i => i.MatchStsfld(typeof(Main), nameof(Main.hasFocus)))) {
+					return;
+				}
+
+				c.EmitDelegate(() => RunInBackground);
+				c.Emit(OpCodes.Or);
+				#endregion
+
+			}
+			catch (Exception e) {
+				Logger.Error(e.Message);
+				return;
+			}
 		}
 
 		public override void Unload()
@@ -106,11 +138,20 @@ namespace HelpfulHotkeys
 			QuickBuffFavoritedOnlyHotkey =
 			QueryModOriginHotkey =
 			ToggleAutopauseHotkey =
+			ToggleRunInBackgroundHotkey =
 			SwapArmorVanityHotkey =
 			SwapHotbarHotkey =
 			CyclingQuickMountHotkey =
 			HoldMountHotkey =
 			SwitchFrameSkipModeHotkey = null;
+		}
+
+		public static bool CanPauseGame(On_Main.orig_CanPauseGame orig)
+		{
+			if (RunInBackground)
+				return false;
+
+			return orig();
 		}
 
 		// 1.5.4.1 - Added ("RegisterRecallItem", int[ItemID])

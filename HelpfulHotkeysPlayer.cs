@@ -31,6 +31,11 @@ namespace HelpfulHotkeys
 			LaunchMinecartHookMethod = typeof(Player).GetMethod("LaunchMinecartHook", BindingFlags.Instance | BindingFlags.NonPublic);
 		}
 
+		public override void UpdateAutopause()
+		{
+			ProcessTriggers(null);
+		}
+
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
 			if (HelpfulHotkeys.QueryModOriginHotkey.JustPressed)
@@ -83,6 +88,10 @@ namespace HelpfulHotkeys
 			if (HelpfulHotkeys.ToggleAutopauseHotkey.JustPressed)
 			{
 				ToggleAutoPause();
+			}
+			if (HelpfulHotkeys.ToggleRunInBackgroundHotkey.JustPressed)
+			{
+				ToggleRunInBackground();
 			}
 			if (HelpfulHotkeys.SwapArmorInventoryHotkey.JustPressed) { 
 				SwapArmorInventory();
@@ -599,6 +608,12 @@ namespace HelpfulHotkeys
 		{
 			Main.autoPause = !Main.autoPause;
 			Main.NewText("Autopause turned " + (Main.autoPause ? "on" : "off"));
+		}
+
+		public void ToggleRunInBackground()
+		{
+			HelpfulHotkeys.RunInBackground = !HelpfulHotkeys.RunInBackground;
+			Main.NewText($"Run in Background was {(HelpfulHotkeys.RunInBackground ? "enabled" : "disabled")}.");
 		}
 
 		public void QuickUseItemAt(int index, bool use = true)

@@ -27,6 +27,7 @@ Mods: {
 			// QuickMountHold.DisplayName: Quick Mount - Hold
 			// SwitchFrameSkipMode.DisplayName: Switch Frame Skip Mode
 			// Dash.DisplayName: Dash
+			// ToggleRunInBackground.DisplayName: Toggle Run in Background
 		}
 
 		Configs: {
