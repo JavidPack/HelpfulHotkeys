@@ -84,6 +84,11 @@ Mods: {
 						Vanilla ID values will also be shown.
 						'''
 				}
+
+				EnableSmartQuickStackToChests: {
+					Label: Enable Smart Quick Stack To Chests
+					Tooltip: ""
+				}
 			}
 		}
 	}

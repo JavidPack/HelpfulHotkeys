@@ -15,6 +15,9 @@ namespace HelpfulHotkeys
 		[ReloadRequired]
 		public bool EnableQuickUseItems11to19;
 
+        [ReloadRequired]
+        public bool EnableSmartQuickStackToChests;
+        
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
 
 		public List<int> SwapArmorInventorySlots = new List<int>() { 29, 39, 49 };
@@ -25,6 +28,6 @@ namespace HelpfulHotkeys
 		public bool DashHotkeyDisablesDoubleTap;
 
 		public bool DashHotkeyDisabledWhileInChest;
-	}
+    }
 #pragma warning restore 0649
 }
