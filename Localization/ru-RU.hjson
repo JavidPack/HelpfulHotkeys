@@ -84,6 +84,11 @@ Mods: {
 						Также будут показаны значения Vanilla ID.
 						'''
 				}
+
+				ShowSmartQuickStackToChests: {
+					// Label: Show Smart Stack To Nearby Chests Button
+					// Tooltip: Toggles displaying the "Smart Stack To Nearby Chests" button next to the "Sort Inventory" button
+				}
 			}
 		}
 	}

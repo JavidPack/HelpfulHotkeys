@@ -669,8 +669,8 @@ namespace HelpfulHotkeys
 
 		public void SmartQuickStackToChests()
 		{
-			smartQuickStack();
-			Recipe.FindRecipes();
+            smartQuickStack();
+            Recipe.FindRecipes();
 		}
 
 		public void QuickStackToChests()

@@ -202,6 +202,11 @@ namespace HelpfulHotkeys
 
 		private void DrawSmartStackButton(SpriteBatch spriteBatch)
 		{
+			if (!HelpfulHotkeysClientConfig.Instance.ShowSmartQuickStackToChests)
+			{
+				return;
+			}
+
 			if (Main.player[Main.myPlayer].chest == -1 && Main.npcShop == 0)
 			{
 				int imageChoice = 0;
