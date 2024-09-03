@@ -202,7 +202,7 @@ namespace HelpfulHotkeys
 
 		private void DrawSmartStackButton(SpriteBatch spriteBatch)
 		{
-			if (!HelpfulHotkeysClientConfig.Instance.EnableSmartQuickStackToChests)
+			if (!HelpfulHotkeysClientConfig.Instance.ShowSmartQuickStackToChests)
 			{
 				return;
 			}

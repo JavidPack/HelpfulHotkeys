@@ -15,8 +15,8 @@ namespace HelpfulHotkeys
 		[ReloadRequired]
 		public bool EnableQuickUseItems11to19;
 
-        [ReloadRequired]
-        public bool EnableSmartQuickStackToChests;
+		[DefaultValue(true)]
+		public bool ShowSmartQuickStackToChests;
         
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
 

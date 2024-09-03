@@ -85,9 +85,9 @@ Mods: {
 						'''
 				}
 
-				EnableSmartQuickStackToChests: {
-					Label: Enable Smart Quick Stack To Chests
-					Tooltip: ""
+				ShowSmartQuickStackToChests: {
+					Label: Show Smart Stack To Nearby Chests Button
+					Tooltip: Toggles displaying the "Smart Stack To Nearby Chests" button next to the "Sort Inventory" button
 				}
 			}
 		}
