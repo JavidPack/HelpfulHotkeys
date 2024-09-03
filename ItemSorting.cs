@@ -14,260 +14,200 @@ namespace HelpfulHotkeys
 			public readonly string Name;
 			public readonly Func<Item, bool> SortingMethod;
 
-			public ItemSortingLayer(string name, Func<Item, bool> method)
-			{
+			public ItemSortingLayer(string name, Func<Item, bool> method) {
 				this.Name = name;
 				this.SortingMethod = method;
 			}
 
-			public bool Pass(Item item)
-			{
+			public bool Pass(Item item) {
 				// TODO: Bug? This isn't unloaded item anymore
 				return (item.type != ItemID.Count) && !item.IsAir && SortingMethod(item);
 			}
 
-			public override string ToString()
-			{
+			public override string ToString() {
 				return this.Name;
 			}
 		}
 
 		private class ItemSortingLayers
 		{
-			public static ItemSorting.ItemSortingLayer WeaponsMelee = new ItemSorting.ItemSortingLayer("Weapons - Melee", delegate (Item item)
-				{
-					return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Melee && item.pick < 1 && item.hammer < 1 && item.axe < 1 && !item.accessory; // added !item.accessory
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsRanged = new ItemSorting.ItemSortingLayer("Weapons - Ranged", delegate (Item item)
-				{
-					return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Ranged && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsMagic = new ItemSorting.ItemSortingLayer("Weapons - Magic", delegate (Item item)
-				{
-					return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Magic && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsMinions = new ItemSorting.ItemSortingLayer("Weapons - Summon", delegate (Item item)
-				{
-					return item.maxStack == 1 && item.damage > 0 && item.DamageType == DamageClass.Summon && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsThrown = new ItemSorting.ItemSortingLayer("Weapons - Throwing", delegate (Item item)
-				{
-					return item.damage > 0 && (item.ammo == 0 || item.notAmmo) && item.shoot > ProjectileID.None && item.DamageType == DamageClass.Throwing && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsAssorted = new ItemSorting.ItemSortingLayer("Weapons - Assorted", delegate (Item item)
-				{
-					return item.damage > 0 && item.ammo == 0 && item.pick == 0 && item.axe == 0 && item.hammer == 0 && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer WeaponsAmmo = new ItemSorting.ItemSortingLayer("Weapons - Ammo", delegate (Item item)
-				{
-					return item.ammo > 0 && item.damage > 0 && !item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsPicksaws = new ItemSorting.ItemSortingLayer("Tools - Picksaws", delegate (Item item)
-				{
-					return item.pick > 0 && item.axe > 0;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsHamaxes = new ItemSorting.ItemSortingLayer("Tools - Hamaxes", delegate (Item item)
-				{
-					return item.hammer > 0 && item.axe > 0;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsPickaxes = new ItemSorting.ItemSortingLayer("Tools - Pickaxes", delegate (Item item)
-				{
-					return item.pick > 0;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsAxes = new ItemSorting.ItemSortingLayer("Tools - Axes", delegate (Item item)
-				{
-					return item.axe > 0;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsHammers = new ItemSorting.ItemSortingLayer("Tools - Hammers", delegate (Item item)
-				{
-					return item.hammer > 0;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsFishingRods = new ItemSorting.ItemSortingLayer("Tools - Fishing Rods", delegate (Item item)
-				{
-					return item.fishingPole > 1;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsTerraforming = new ItemSorting.ItemSortingLayer("Tools - Terraforming", delegate (Item item)
-				{
-					return item.netID > NetmodeID.SinglePlayer && ItemID.Sets.SortingPriorityTerraforming[item.netID] > -1;
-				});
-			public static ItemSorting.ItemSortingLayer ToolsAmmoLeftovers = new ItemSorting.ItemSortingLayer("Weapons - Ammo Leftovers", delegate (Item item)
-				{
-					return item.ammo > 0;
-				});
+			public static ItemSorting.ItemSortingLayer WeaponsMelee = new ItemSorting.ItemSortingLayer("Weapons - Melee", delegate (Item item) {
+				return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Melee && item.pick < 1 && item.hammer < 1 && item.axe < 1 && !item.accessory; // added !item.accessory
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsRanged = new ItemSorting.ItemSortingLayer("Weapons - Ranged", delegate (Item item) {
+				return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Ranged && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsMagic = new ItemSorting.ItemSortingLayer("Weapons - Magic", delegate (Item item) {
+				return item.maxStack == 1 && item.damage > 0 && item.ammo == 0 && item.DamageType == DamageClass.Magic && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsMinions = new ItemSorting.ItemSortingLayer("Weapons - Summon", delegate (Item item) {
+				return item.maxStack == 1 && item.damage > 0 && item.DamageType == DamageClass.Summon && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsThrown = new ItemSorting.ItemSortingLayer("Weapons - Throwing", delegate (Item item) {
+				return item.damage > 0 && (item.ammo == 0 || item.notAmmo) && item.shoot > ProjectileID.None && item.DamageType == DamageClass.Throwing && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsAssorted = new ItemSorting.ItemSortingLayer("Weapons - Assorted", delegate (Item item) {
+				return item.damage > 0 && item.ammo == 0 && item.pick == 0 && item.axe == 0 && item.hammer == 0 && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer WeaponsAmmo = new ItemSorting.ItemSortingLayer("Weapons - Ammo", delegate (Item item) {
+				return item.ammo > 0 && item.damage > 0 && !item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsPicksaws = new ItemSorting.ItemSortingLayer("Tools - Picksaws", delegate (Item item) {
+				return item.pick > 0 && item.axe > 0;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsHamaxes = new ItemSorting.ItemSortingLayer("Tools - Hamaxes", delegate (Item item) {
+				return item.hammer > 0 && item.axe > 0;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsPickaxes = new ItemSorting.ItemSortingLayer("Tools - Pickaxes", delegate (Item item) {
+				return item.pick > 0;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsAxes = new ItemSorting.ItemSortingLayer("Tools - Axes", delegate (Item item) {
+				return item.axe > 0;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsHammers = new ItemSorting.ItemSortingLayer("Tools - Hammers", delegate (Item item) {
+				return item.hammer > 0;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsFishingRods = new ItemSorting.ItemSortingLayer("Tools - Fishing Rods", delegate (Item item) {
+				return item.fishingPole > 1;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsTerraforming = new ItemSorting.ItemSortingLayer("Tools - Terraforming", delegate (Item item) {
+				return item.netID > NetmodeID.SinglePlayer && ItemID.Sets.SortingPriorityTerraforming[item.netID] > -1;
+			});
+			public static ItemSorting.ItemSortingLayer ToolsAmmoLeftovers = new ItemSorting.ItemSortingLayer("Weapons - Ammo Leftovers", delegate (Item item) {
+				return item.ammo > 0;
+			});
 			//public static ItemSorting.ItemSortingLayer ArmorCombat = new ItemSorting.ItemSortingLayer("Armor - Combat", delegate (Item item)
 			//	{
 			//		return (item.bodySlot >= 0 || item.headSlot >= 0 || item.legSlot >= 0) && !item.vanity;
 			//	});
-			public static ItemSorting.ItemSortingLayer ArmorCombatHead = new ItemSorting.ItemSortingLayer("Armor - Combat Head", delegate (Item item)
-				{
-					return (item.headSlot >= 0) && !item.vanity;
-				});
-			public static ItemSorting.ItemSortingLayer ArmorCombatChest = new ItemSorting.ItemSortingLayer("Armor - Combat Chest", delegate (Item item)
-				{
-					return (item.bodySlot >= 0) && !item.vanity;
-				});
-			public static ItemSorting.ItemSortingLayer ArmorCombatLegs = new ItemSorting.ItemSortingLayer("Armor - Combat Legs", delegate (Item item)
-				{
-					return (item.legSlot >= 0) && !item.vanity;
-				});
+			public static ItemSorting.ItemSortingLayer ArmorCombatHead = new ItemSorting.ItemSortingLayer("Armor - Combat Head", delegate (Item item) {
+				return (item.headSlot >= 0) && !item.vanity;
+			});
+			public static ItemSorting.ItemSortingLayer ArmorCombatChest = new ItemSorting.ItemSortingLayer("Armor - Combat Chest", delegate (Item item) {
+				return (item.bodySlot >= 0) && !item.vanity;
+			});
+			public static ItemSorting.ItemSortingLayer ArmorCombatLegs = new ItemSorting.ItemSortingLayer("Armor - Combat Legs", delegate (Item item) {
+				return (item.legSlot >= 0) && !item.vanity;
+			});
 			//public static ItemSorting.ItemSortingLayer ArmorVanity = new ItemSorting.ItemSortingLayer("Armor - Vanity", delegate (Item item)
 			//	{
 			//		return (item.bodySlot >= 0 || item.headSlot >= 0 || item.legSlot >= 0) && item.vanity;
 			//	});
-			public static ItemSorting.ItemSortingLayer ArmorVanityHead = new ItemSorting.ItemSortingLayer("Armor - Vanity Head", delegate (Item item)
-				{
-					return (item.headSlot >= 0) && item.vanity;
-				});
-			public static ItemSorting.ItemSortingLayer ArmorVanityChest = new ItemSorting.ItemSortingLayer("Armor - Vanity Chest", delegate (Item item)
-				{
-					return (item.bodySlot >= 0) && item.vanity;
-				});
-			public static ItemSorting.ItemSortingLayer ArmorVanityLegs = new ItemSorting.ItemSortingLayer("Armor - Vanity Legs", delegate (Item item)
-				{
-					return (item.legSlot >= 0) && item.vanity;
-				});
-			public static ItemSorting.ItemSortingLayer ArmorAccessories = new ItemSorting.ItemSortingLayer("Armor - Accessories", delegate (Item item)
-				{
-					return item.accessory;
-				});
-			public static ItemSorting.ItemSortingLayer EquipGrapple = new ItemSorting.ItemSortingLayer("Equip - Grapple", delegate (Item item)
-				{
-					return Main.projHook[item.shoot];
-				});
-			public static ItemSorting.ItemSortingLayer EquipMount = new ItemSorting.ItemSortingLayer("Equip - Mount", delegate (Item item)
-				{
-					return item.mountType != -1 && !MountID.Sets.Cart[item.mountType];
-				});
-			public static ItemSorting.ItemSortingLayer EquipCart = new ItemSorting.ItemSortingLayer("Equip - Cart", delegate (Item item)
-				{
-					return item.mountType != -1 && MountID.Sets.Cart[item.mountType];
-				});
-			public static ItemSorting.ItemSortingLayer EquipLightPet = new ItemSorting.ItemSortingLayer("Equip - Light Pet", delegate (Item item)
-				{
-					return item.buffType > 0 && Main.lightPet[item.buffType];
-				});
-			public static ItemSorting.ItemSortingLayer EquipVanityPet = new ItemSorting.ItemSortingLayer("Equip - Vanity Pet", delegate (Item item)
-				{
-					return item.buffType > 0 && Main.vanityPet[item.buffType];
-				});
-			public static ItemSorting.ItemSortingLayer FishingCrates = new ItemSorting.ItemSortingLayer("Fishing - Crates", delegate (Item item)
-				{
-					return item.netID > 0 && (ItemID.Sets.IsFishingCrate[item.type] || ItemID.Sets.IsFishingCrateHardmode[item.type]);
-				});
-			public static ItemSorting.ItemSortingLayer FishingBait = new ItemSorting.ItemSortingLayer("Fishing - Bait", delegate (Item item)
-				{
-					return item.netID > 0 && item.bait > 0;
-				});
-			public static ItemSorting.ItemSortingLayer FishingQuest = new ItemSorting.ItemSortingLayer("Fishing - Quests", delegate (Item item)
-				{
-					return item.netID > 0 && item.questItem;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsLife = new ItemSorting.ItemSortingLayer("Potions - Life", delegate (Item item)
-				{
-					return item.consumable && item.healLife > 0 && item.healMana < 1;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsMana = new ItemSorting.ItemSortingLayer("Potions - Mana", delegate (Item item)
-				{
-					return item.consumable && item.healLife < 1 && item.healMana > 0;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsElixirs = new ItemSorting.ItemSortingLayer("Potions - Elixirs", delegate (Item item)
-				{
-					return item.consumable && item.healLife > 0 && item.healMana > 0;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsFood = new ItemSorting.ItemSortingLayer("Potions - Food", delegate (Item item)
-				{
-					return item.consumable && ItemID.Sets.IsFood[item.type];
-				});
-			public static ItemSorting.ItemSortingLayer PotionsBuffs = new ItemSorting.ItemSortingLayer("Potions - Buffs", delegate (Item item)
-				{
-					return item.consumable && item.buffType > 0 && !ItemID.Sets.IsFood[item.type];
-				});
-			public static ItemSorting.ItemSortingLayer PotionsNonBuffs = new ItemSorting.ItemSortingLayer("Potions - Non-Buffs", delegate (Item item)
-				{
-					return item.consumable && item.buffType == 0 && item.damage == 0 && item.ammo == 0 && item.makeNPC <= 0;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsDyes = new ItemSorting.ItemSortingLayer("Potions - Dyes", delegate (Item item)
-				{
-					return item.dye > 0;
-				});
-			public static ItemSorting.ItemSortingLayer PotionsHairDyes = new ItemSorting.ItemSortingLayer("Potions - Hair Dyes", delegate (Item item)
-				{
-					return item.hairDye >= 0;
-				});
-			public static ItemSorting.ItemSortingLayer MiscBossSpawns = new ItemSorting.ItemSortingLayer("Misc - Boss Spawns", delegate (Item item)
-				{
-					return item.netID > 0 && ItemID.Sets.SortingPriorityBossSpawns[item.type] > -1;
-				});
-			public static ItemSorting.ItemSortingLayer MiscCritters = new ItemSorting.ItemSortingLayer("Misc - Critters", delegate (Item item)
-				{
-					return item.netID > 0 && item.makeNPC > 0;
-				});
-			public static ItemSorting.ItemSortingLayer MiscBanners = new ItemSorting.ItemSortingLayer("Misc - Banners", delegate (Item item)
-			{
+			public static ItemSorting.ItemSortingLayer ArmorVanityHead = new ItemSorting.ItemSortingLayer("Armor - Vanity Head", delegate (Item item) {
+				return (item.headSlot >= 0) && item.vanity;
+			});
+			public static ItemSorting.ItemSortingLayer ArmorVanityChest = new ItemSorting.ItemSortingLayer("Armor - Vanity Chest", delegate (Item item) {
+				return (item.bodySlot >= 0) && item.vanity;
+			});
+			public static ItemSorting.ItemSortingLayer ArmorVanityLegs = new ItemSorting.ItemSortingLayer("Armor - Vanity Legs", delegate (Item item) {
+				return (item.legSlot >= 0) && item.vanity;
+			});
+			public static ItemSorting.ItemSortingLayer ArmorAccessories = new ItemSorting.ItemSortingLayer("Armor - Accessories", delegate (Item item) {
+				return item.accessory;
+			});
+			public static ItemSorting.ItemSortingLayer EquipGrapple = new ItemSorting.ItemSortingLayer("Equip - Grapple", delegate (Item item) {
+				return Main.projHook[item.shoot];
+			});
+			public static ItemSorting.ItemSortingLayer EquipMount = new ItemSorting.ItemSortingLayer("Equip - Mount", delegate (Item item) {
+				return item.mountType != -1 && !MountID.Sets.Cart[item.mountType];
+			});
+			public static ItemSorting.ItemSortingLayer EquipCart = new ItemSorting.ItemSortingLayer("Equip - Cart", delegate (Item item) {
+				return item.mountType != -1 && MountID.Sets.Cart[item.mountType];
+			});
+			public static ItemSorting.ItemSortingLayer EquipLightPet = new ItemSorting.ItemSortingLayer("Equip - Light Pet", delegate (Item item) {
+				return item.buffType > 0 && Main.lightPet[item.buffType];
+			});
+			public static ItemSorting.ItemSortingLayer EquipVanityPet = new ItemSorting.ItemSortingLayer("Equip - Vanity Pet", delegate (Item item) {
+				return item.buffType > 0 && Main.vanityPet[item.buffType];
+			});
+			public static ItemSorting.ItemSortingLayer FishingCrates = new ItemSorting.ItemSortingLayer("Fishing - Crates", delegate (Item item) {
+				return item.netID > 0 && (ItemID.Sets.IsFishingCrate[item.type] || ItemID.Sets.IsFishingCrateHardmode[item.type]);
+			});
+			public static ItemSorting.ItemSortingLayer FishingBait = new ItemSorting.ItemSortingLayer("Fishing - Bait", delegate (Item item) {
+				return item.netID > 0 && item.bait > 0;
+			});
+			public static ItemSorting.ItemSortingLayer FishingQuest = new ItemSorting.ItemSortingLayer("Fishing - Quests", delegate (Item item) {
+				return item.netID > 0 && item.questItem;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsLife = new ItemSorting.ItemSortingLayer("Potions - Life", delegate (Item item) {
+				return item.consumable && item.healLife > 0 && item.healMana < 1;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsMana = new ItemSorting.ItemSortingLayer("Potions - Mana", delegate (Item item) {
+				return item.consumable && item.healLife < 1 && item.healMana > 0;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsElixirs = new ItemSorting.ItemSortingLayer("Potions - Elixirs", delegate (Item item) {
+				return item.consumable && item.healLife > 0 && item.healMana > 0;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsFood = new ItemSorting.ItemSortingLayer("Potions - Food", delegate (Item item) {
+				return item.consumable && ItemID.Sets.IsFood[item.type];
+			});
+			public static ItemSorting.ItemSortingLayer PotionsBuffs = new ItemSorting.ItemSortingLayer("Potions - Buffs", delegate (Item item) {
+				return item.consumable && item.buffType > 0 && !ItemID.Sets.IsFood[item.type];
+			});
+			public static ItemSorting.ItemSortingLayer PotionsNonBuffs = new ItemSorting.ItemSortingLayer("Potions - Non-Buffs", delegate (Item item) {
+				return item.consumable && item.buffType == 0 && item.damage == 0 && item.ammo == 0 && item.makeNPC <= 0;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsDyes = new ItemSorting.ItemSortingLayer("Potions - Dyes", delegate (Item item) {
+				return item.dye > 0;
+			});
+			public static ItemSorting.ItemSortingLayer PotionsHairDyes = new ItemSorting.ItemSortingLayer("Potions - Hair Dyes", delegate (Item item) {
+				return item.hairDye >= 0;
+			});
+			public static ItemSorting.ItemSortingLayer MiscBossSpawns = new ItemSorting.ItemSortingLayer("Misc - Boss Spawns", delegate (Item item) {
+				return item.netID > 0 && ItemID.Sets.SortingPriorityBossSpawns[item.type] > -1;
+			});
+			public static ItemSorting.ItemSortingLayer MiscCritters = new ItemSorting.ItemSortingLayer("Misc - Critters", delegate (Item item) {
+				return item.netID > 0 && item.makeNPC > 0;
+			});
+			public static ItemSorting.ItemSortingLayer MiscBanners = new ItemSorting.ItemSortingLayer("Misc - Banners", delegate (Item item) {
 				return item.netID > 0 && item.createTile == TileID.Banners; //TODO: replace with set when tmod updates
 			});
-			public static ItemSorting.ItemSortingLayer MiscWiring = new ItemSorting.ItemSortingLayer("Misc - Wiring", delegate (Item item)
-				{
-					return (item.netID > 0 && ItemID.Sets.SortingPriorityWiring[item.type] > -1) || item.mech;
-				});
-			public static ItemSorting.ItemSortingLayer MiscExtractinator = new ItemSorting.ItemSortingLayer("Misc - Extractinator", delegate (Item item)
-				{
-					return item.netID > 0 && ItemID.Sets.SortingPriorityExtractibles[item.type] > -1;
-				});
-			public static ItemSorting.ItemSortingLayer MiscPainting = new ItemSorting.ItemSortingLayer("Misc - Painting", delegate (Item item)
-				{
-					return (item.netID > 0 && ItemID.Sets.SortingPriorityPainting[item.type] > -1) || item.paint > PaintID.None;
-				});
-			public static ItemSorting.ItemSortingLayer MiscRopes = new ItemSorting.ItemSortingLayer("Misc - Ropes", delegate (Item item)
-				{
-					return item.netID > 0 && ItemID.Sets.SortingPriorityRopes[item.type] > -1;
-				});
-			public static ItemSorting.ItemSortingLayer MiscTorches = new ItemSorting.ItemSortingLayer("Misc - Torches", delegate (Item item)
-				{
-					return item.netID > 0 && ItemID.Sets.Torches[item.type];
-				});
-			public static ItemSorting.ItemSortingLayer MiscTombstones = new ItemSorting.ItemSortingLayer("Misc - Tombstones", delegate (Item item)
-				{
-					return item.netID > 0 && item.createTile == TileID.Tombstones; //TODO: replace with set when tmod updates
-				});
-			public static ItemSorting.ItemSortingLayer MiscMaterials = new ItemSorting.ItemSortingLayer("Misc - Materials", delegate (Item item)
-				{
-					return item.netID > 0 && ItemID.Sets.SortingPriorityMaterials[item.netID] > -1;
-				});
-			public static ItemSorting.ItemSortingLayer LastMaterials = new ItemSorting.ItemSortingLayer("Last - Materials", delegate (Item item)
-				{
-					return item.createTile < TileID.Dirt && item.createWall < WallID.Stone;
-				});
-			public static ItemSorting.ItemSortingLayer LastTilesImportant = new ItemSorting.ItemSortingLayer("Last - Tiles (Frame Important)", delegate (Item item)
-				{
-					return item.createTile >= TileID.Dirt && Main.tileFrameImportant[item.createTile];
-				});
-			public static ItemSorting.ItemSortingLayer LastTilesCommon = new ItemSorting.ItemSortingLayer("Last - Tiles (Common), Walls", delegate (Item item)
-				{
-					return item.createWall > WallID.None || item.createTile >= TileID.Dirt;
-				});
-			public static ItemSorting.ItemSortingLayer LastNotTrash = new ItemSorting.ItemSortingLayer("Last - Not Trash", delegate (Item item)
-				{
-					return item.rare >= ItemRarityID.White;
-				});
-			public static ItemSorting.ItemSortingLayer LastTrash = new ItemSorting.ItemSortingLayer("Last - Trash", delegate (Item item)
-				{
-					return !item.IsAir;
-				});
+			public static ItemSorting.ItemSortingLayer MiscWiring = new ItemSorting.ItemSortingLayer("Misc - Wiring", delegate (Item item) {
+				return (item.netID > 0 && ItemID.Sets.SortingPriorityWiring[item.type] > -1) || item.mech;
+			});
+			public static ItemSorting.ItemSortingLayer MiscExtractinator = new ItemSorting.ItemSortingLayer("Misc - Extractinator", delegate (Item item) {
+				return item.netID > 0 && ItemID.Sets.SortingPriorityExtractibles[item.type] > -1;
+			});
+			public static ItemSorting.ItemSortingLayer MiscPainting = new ItemSorting.ItemSortingLayer("Misc - Painting", delegate (Item item) {
+				return (item.netID > 0 && ItemID.Sets.SortingPriorityPainting[item.type] > -1) || item.paint > PaintID.None;
+			});
+			public static ItemSorting.ItemSortingLayer MiscRopes = new ItemSorting.ItemSortingLayer("Misc - Ropes", delegate (Item item) {
+				return item.netID > 0 && ItemID.Sets.SortingPriorityRopes[item.type] > -1;
+			});
+			public static ItemSorting.ItemSortingLayer MiscTorches = new ItemSorting.ItemSortingLayer("Misc - Torches", delegate (Item item) {
+				return item.netID > 0 && ItemID.Sets.Torches[item.type];
+			});
+			public static ItemSorting.ItemSortingLayer MiscTombstones = new ItemSorting.ItemSortingLayer("Misc - Tombstones", delegate (Item item) {
+				return item.netID > 0 && item.createTile == TileID.Tombstones; //TODO: replace with set when tmod updates
+			});
+			public static ItemSorting.ItemSortingLayer MiscMaterials = new ItemSorting.ItemSortingLayer("Misc - Materials", delegate (Item item) {
+				return item.netID > 0 && ItemID.Sets.SortingPriorityMaterials[item.netID] > -1;
+			});
+			public static ItemSorting.ItemSortingLayer LastMaterials = new ItemSorting.ItemSortingLayer("Last - Materials", delegate (Item item) {
+				return item.createTile < TileID.Dirt && item.createWall < WallID.Stone;
+			});
+			public static ItemSorting.ItemSortingLayer LastTilesImportant = new ItemSorting.ItemSortingLayer("Last - Tiles (Frame Important)", delegate (Item item) {
+				return item.createTile >= TileID.Dirt && Main.tileFrameImportant[item.createTile];
+			});
+			public static ItemSorting.ItemSortingLayer LastTilesCommon = new ItemSorting.ItemSortingLayer("Last - Tiles (Common), Walls", delegate (Item item) {
+				return item.createWall > WallID.None || item.createTile >= TileID.Dirt;
+			});
+			public static ItemSorting.ItemSortingLayer LastNotTrash = new ItemSorting.ItemSortingLayer("Last - Not Trash", delegate (Item item) {
+				return item.rare >= ItemRarityID.White;
+			});
+			public static ItemSorting.ItemSortingLayer LastTrash = new ItemSorting.ItemSortingLayer("Last - Trash", delegate (Item item) {
+				return !item.IsAir;
+			});
 		}
 
-		internal static List<ItemSortingLayer> GetPassingLayers(Item[] items)
-		{
+		internal static List<ItemSortingLayer> GetPassingLayers(Item[] items) {
 			SetupSortingPriorities();
 
 			HashSet<ItemSortingLayer> passing = new HashSet<ItemSortingLayer>();
 
-			foreach (var item in items)
-			{
-				foreach (var layer in layerList)
-				{
-					if (layer.Pass(item))
-					{
+			foreach (var item in items) {
+				foreach (var layer in layerList) {
+					if (layer.Pass(item)) {
 						passing.Add(layer);
 						break;
 					}
@@ -279,9 +219,9 @@ namespace HelpfulHotkeys
 
 		internal static List<ItemSorting.ItemSortingLayer> layerList;
 
-		private static void SetupSortingPriorities()
-		{
-			if (layerList != null) return;
+		private static void SetupSortingPriorities() {
+			if (layerList != null)
+				return;
 			layerList = new List<ItemSortingLayer>();
 			//ItemSorting._layerList.Clear();
 			ItemSorting.layerList.Add(ItemSorting.ItemSortingLayers.WeaponsMelee);

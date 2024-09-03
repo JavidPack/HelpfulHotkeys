@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using Terraria.ModLoader.Config;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Terraria.ID;
-using System.Collections.Generic;
+using Terraria.ModLoader.Config;
 
 namespace HelpfulHotkeys
 {
@@ -17,7 +17,7 @@ namespace HelpfulHotkeys
 
 		[DefaultValue(true)]
 		public bool ShowSmartQuickStackToChests;
-        
+
 		public ItemDefinition QuickUseConfigItem { get; set; } = new ItemDefinition(ItemID.None);
 
 		public List<int> SwapArmorInventorySlots = new List<int>() { 29, 39, 49 };
@@ -28,6 +28,6 @@ namespace HelpfulHotkeys
 		public bool DashHotkeyDisablesDoubleTap;
 
 		public bool DashHotkeyDisabledWhileInChest;
-    }
+	}
 #pragma warning restore 0649
 }
