@@ -110,6 +110,12 @@ namespace HelpfulHotkeys
 				Main.CycleFrameSkipMode();
 				Main.NewText($"Frame Skip Mode is now: {Language.GetTextValue("LegacyMenu." + (247 + Main.FrameSkipMode))}");
 			}
+			if (HelpfulHotkeys.ToggleRulerHotKey.JustPressed) {
+				if (BuilderToggle.RulerLine.CurrentState == 0)
+					BuilderToggle.RulerLine.CurrentState = 1;
+				else
+					BuilderToggle.RulerLine.CurrentState = 0;
+			}
 		}
 
 		public override void SetControls() {

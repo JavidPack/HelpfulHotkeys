@@ -28,6 +28,7 @@ Mods: {
 			SwitchFrameSkipMode.DisplayName: Switch Frame Skip Mode
 			Dash.DisplayName: Dash
 			ToggleRunInBackground.DisplayName: Toggle Run in Background
+			ToggleRuler.DisplayName: Toggle Ruler
 		}
 
 		Configs: {
