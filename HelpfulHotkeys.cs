@@ -43,6 +43,7 @@ namespace HelpfulHotkeys
 		internal static ModKeybind HoldMountHotkey;
 		internal static ModKeybind SwitchFrameSkipModeHotkey;
 		internal static ModKeybind DashHotkey;
+		internal static ModKeybind ToggleRulerHotKey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		internal static bool RunInBackground = false;
@@ -55,7 +56,7 @@ namespace HelpfulHotkeys
 			SmartQuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "SmartQuickStackToChests", "OemPipe");
 			QuickUseItemHotkeys = new ModKeybind[10];
 			for (int i = 0; i < 10; i++) {
-				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)
+				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)	
 					continue;
 				QuickUseItemHotkeys[i] = KeybindLoader.RegisterKeybind(this, $"QuickUseItem{i + 11}", i == 9 ? "L" : "Z");
 			}
@@ -71,6 +72,7 @@ namespace HelpfulHotkeys
 			HoldMountHotkey = KeybindLoader.RegisterKeybind(this, "QuickMountHold", "Z");
 			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "SwitchFrameSkipMode", "Z");
 			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
+			ToggleRulerHotKey = KeybindLoader.RegisterKeybind(this, "ToggleRuler", "L");
 
 			smartStackButtonTextures = new Texture2D[]
 			{
@@ -142,7 +144,8 @@ namespace HelpfulHotkeys
 			SwapHotbarHotkey =
 			CyclingQuickMountHotkey =
 			HoldMountHotkey =
-			SwitchFrameSkipModeHotkey = null;
+			SwitchFrameSkipModeHotkey =
+			ToggleRulerHotKey = null;
 		}
 
 		public static bool CanPauseGame(On_Main.orig_CanPauseGame orig) {

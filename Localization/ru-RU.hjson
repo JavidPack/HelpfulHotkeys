@@ -28,6 +28,7 @@ Mods: {
 			SwitchFrameSkipMode.DisplayName: Переключение режима пропуска кадров
 			Dash.DisplayName: Рывок
 			// ToggleRunInBackground.DisplayName: Toggle Run in Background
+			ToggleRuler.DisplayName: Вкл/откл линеика
 		}
 
 		Configs: {
