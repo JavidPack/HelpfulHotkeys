@@ -56,7 +56,7 @@ namespace HelpfulHotkeys
 			SmartQuickStackToChestsHotKey = KeybindLoader.RegisterKeybind(this, "SmartQuickStackToChests", "OemPipe");
 			QuickUseItemHotkeys = new ModKeybind[10];
 			for (int i = 0; i < 10; i++) {
-				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)	
+				if (!HelpfulHotkeysClientConfig.Instance.EnableQuickUseItems11to19 && i != 9)
 					continue;
 				QuickUseItemHotkeys[i] = KeybindLoader.RegisterKeybind(this, $"QuickUseItem{i + 11}", i == 9 ? "L" : "Z");
 			}
