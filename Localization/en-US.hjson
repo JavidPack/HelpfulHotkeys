@@ -29,6 +29,7 @@ Mods: {
 			Dash.DisplayName: Dash
 			ToggleRunInBackground.DisplayName: Toggle Run in Background
 			ToggleRuler.DisplayName: Toggle Ruler
+			PauseMenu.DisplayName: Open Pause Menu
 		}
 
 		Configs: {
