@@ -44,6 +44,7 @@ namespace HelpfulHotkeys
 		internal static ModKeybind SwitchFrameSkipModeHotkey;
 		internal static ModKeybind DashHotkey;
 		internal static ModKeybind ToggleRulerHotKey;
+		internal static ModKeybind PauseMenuHotKey;
 		// TODO QuickRestockFromNearbyChests --> Might need server side stuff....
 
 		internal static bool RunInBackground = false;
@@ -73,6 +74,7 @@ namespace HelpfulHotkeys
 			SwitchFrameSkipModeHotkey = KeybindLoader.RegisterKeybind(this, "SwitchFrameSkipMode", "Z");
 			DashHotkey = KeybindLoader.RegisterKeybind(this, "Dash", "Z");
 			ToggleRulerHotKey = KeybindLoader.RegisterKeybind(this, "ToggleRuler", "L");
+			PauseMenuHotKey = KeybindLoader.RegisterKeybind(this, "PauseMenu", "I");
 
 			smartStackButtonTextures = new Texture2D[]
 			{
@@ -146,6 +148,7 @@ namespace HelpfulHotkeys
 			HoldMountHotkey =
 			SwitchFrameSkipModeHotkey =
 			ToggleRulerHotKey = null;
+			PauseMenuHotKey = null;
 		}
 
 		public static bool CanPauseGame(On_Main.orig_CanPauseGame orig) {

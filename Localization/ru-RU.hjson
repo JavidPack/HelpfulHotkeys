@@ -29,6 +29,7 @@ Mods: {
 			Dash.DisplayName: Рывок
 			// ToggleRunInBackground.DisplayName: Toggle Run in Background
 			ToggleRuler.DisplayName: Вкл/откл линеика
+			// PauseMenu.DisplayName: Pause Menu
 		}
 
 		Configs: {

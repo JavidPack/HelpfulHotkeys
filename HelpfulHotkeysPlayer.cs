@@ -116,6 +116,12 @@ namespace HelpfulHotkeys
 				else
 					BuilderToggle.RulerLine.CurrentState = 0;
 			}
+			if (HelpfulHotkeys.PauseMenuHotKey.JustPressed) {
+				if (Main.ingameOptionsWindow)
+					IngameOptions.Close();
+				else
+					IngameOptions.Open();
+			}
 		}
 
 		public override void SetControls() {
