@@ -1,94 +1,94 @@
 Mods: {
 	HelpfulHotkeys: {
 		Keybinds: {
-			// AutoRecall.DisplayName: Auto Recall
-			// AutoTorch.DisplayName: Auto Torch
-			// CycleAmmo.DisplayName: Cycle Ammo
-			// QuickStackToChests.DisplayName: Quick Stack to Chests
-			// SmartQuickStackToChests.DisplayName: Smart Quick Stack to Chests
-			// QuickUseItem11.DisplayName: Quick Use Item #11
-			// QuickUseItem12.DisplayName: Quick Use Item #12
-			// QuickUseItem13.DisplayName: Quick Use Item #13
-			// QuickUseItem14.DisplayName: Quick Use Item #14
-			// QuickUseItem15.DisplayName: Quick Use Item #15
-			// QuickUseItem16.DisplayName: Quick Use Item #16
-			// QuickUseItem17.DisplayName: Quick Use Item #17
-			// QuickUseItem18.DisplayName: Quick Use Item #18
-			// QuickUseItem19.DisplayName: Quick Use Item #19
-			// QuickUseItem20.DisplayName: Quick Use Item #20
-			// QuickUseConfigItem.DisplayName: Quick Use Config Item
-			// QuickBuffFavoritedOnly.DisplayName: Quick Buff Favorited Only
-			// QueryModOrigin.DisplayName: Query Mod Origin
-			// ToggleAutopause.DisplayName: Toggle Autopause
-			// SwapArmorWithInventory.DisplayName: Swap Armor with Inventory
-			// SwapArmorWithVanity.DisplayName: Swap Armor with Vanity
-			// SwapHotbarWith1stRow.DisplayName: Swap Hotbar with 1st Row
-			// CyclingQuickMount.DisplayName: Cycling Quick Mount
-			// QuickMountHold.DisplayName: Quick Mount - Hold
-			// SwitchFrameSkipMode.DisplayName: Switch Frame Skip Mode
-			// Dash.DisplayName: Dash
-			// ToggleRunInBackground.DisplayName: Toggle Run in Background
-			// ToggleRuler.DisplayName: Toggle Ruler
+			AutoRecall.DisplayName: 自动回家
+			AutoTorch.DisplayName: 自动火把
+			CycleAmmo.DisplayName: 循环弹药
+			QuickStackToChests.DisplayName: 快速堆叠到箱子
+			SmartQuickStackToChests.DisplayName: 智能快速堆叠到箱子
+			QuickUseItem11.DisplayName: 快速使用物品 #11
+			QuickUseItem12.DisplayName: 快速使用物品 #12
+			QuickUseItem13.DisplayName: 快速使用物品 #13
+			QuickUseItem14.DisplayName: 快速使用物品 #14
+			QuickUseItem15.DisplayName: 快速使用物品 #15
+			QuickUseItem16.DisplayName: 快速使用物品 #16
+			QuickUseItem17.DisplayName: 快速使用物品 #17
+			QuickUseItem18.DisplayName: 快速使用物品 #18
+			QuickUseItem19.DisplayName: 快速使用物品 #19
+			QuickUseItem20.DisplayName: 快速使用物品 #20
+			QuickUseConfigItem.DisplayName: 快速使用配置物品
+			QuickBuffFavoritedOnly.DisplayName: 快速使用收藏的增益物品
+			QueryModOrigin.DisplayName: 查询模组来源
+			ToggleAutopause.DisplayName: 开关自动暂停
+			SwapArmorWithInventory.DisplayName: 交换盔甲栏与物品栏
+			SwapArmorWithVanity.DisplayName: 交换盔甲栏与时装栏
+			SwapHotbarWith1stRow.DisplayName: 交换快捷栏与物品栏第一行
+			CyclingQuickMount.DisplayName: 循环切换坐骑
+			QuickMountHold.DisplayName: 快速坐骑（按住）
+			SwitchFrameSkipMode.DisplayName: 切换跳帧模式
+			Dash.DisplayName: 冲刺
+			ToggleRunInBackground.DisplayName: 切换后台运行
+			ToggleRuler.DisplayName: 开关标尺
 		}
 
 		Configs: {
 			HelpfulHotkeysClientConfig: {
-				// DisplayName: Config
+				DisplayName: 配置
 
 				EnableQuickUseItems11to19: {
-					// Label: Quick Use Item 11-19 Hotkeys
-					// Tooltip: Enable to allow these hotkeys. Keep disabled to keep keybinding menu clean.
+					Label: 启用快速使用物品 11-19 的快捷键
+					Tooltip: 启用后可以使用这些快捷键。禁用后可以保持快捷键菜单整洁。
 				}
 
 				SwapArmorInventorySlots: {
-					// Label: Swap Armor with Inventory Slots
-					/* Tooltip:
+					Label: 交换盔甲栏与物品栏的栏位
+					Tooltip:
 						'''
-						Customize the Swap Armor with Inventory slots here
-						Count from 0. Use value from 0 to 49.
-						Default values correspond to lower right slots in the inventory.
-						''' */
+						在此自定义要交换的盔甲栏与物品栏栏位。
+						从 0 开始计数。请输入 0 到 49 之间的数值。
+						默认值对应物品栏右下方的栏位。
+						'''
 				}
 
 				DashHotkeyDisablesDoubleTap: {
-					// Label: Disable Double Tap Dash Behavior
-					/* Tooltip:
+					Label: 禁用双击冲刺行为
+					Tooltip:
 						'''
-						Enable this to prevent the game from recognizing double taps for dashing.
-						Use this if you intend to only use the dash hotkey.
-						''' */
+						启用此选项后，游戏将不会识别双击操作来触发冲刺。
+						如果你打算仅使用冲刺快捷键，请启用此选项。
+						'''
 				}
 
 				DashHotkeyDisabledWhileInChest: {
-					// Label: Disable Dash Hotkey While Using Chest
-					/* Tooltip:
+					Label: 使用箱子时禁用冲刺快捷键
+					Tooltip:
 						'''
-						Enable this to prevent the dash hotkey from working while in a chest.
-						Use this if your dash hotkey would conflict with chest operations, like shift, alt, or ctrl.
-						''' */
+						启用此选项后，在打开箱子时冲刺快捷键将无法使用。
+						如果你的冲刺快捷键与箱子操作发生冲突，例如使用 Shift、Alt 或 Ctrl 键时，请启用此选项。
+						'''
 				}
 
 				QuickUseConfigItem: {
-					// Label: Quick Use Config Item
-					/* Tooltip:
+					Label: 快速使用配置物品
+					Tooltip:
 						'''
-						Customize the Quick Use Config Item here
-						The specified item can be quickly used from your inventory by pressing the hotkey
-						''' */
+						在此自定义快速使用的物品。
+						按下快捷键即可从物品栏中快速使用指定的物品。
+						'''
 				}
 
 				ShowDeveloperInfoQueryModOrigin: {
-					// Label: Show Developer Info
-					/* Tooltip:
+					Label: 显示开发者信息
+					Tooltip:
 						'''
-						Enhances the Query Mod Origin hotkey to show internal names of Modded items.
-						Vanilla ID values will also be shown.
-						''' */
+						启用后，查询模组来源快捷键还会显示模组物品的内部名称。
+						同时也会显示原版物品的 ID。
+						'''
 				}
 
 				ShowSmartQuickStackToChests: {
-					// Label: Show Smart Stack To Nearby Chests Button
-					// Tooltip: Toggles displaying the "Smart Stack To Nearby Chests" button next to the "Sort Inventory" button
+					Label: 显示智能存入附近箱子按钮
+					Tooltip: 切换是否在[整理物品]按钮旁显示[智能存入附近箱子]按钮
 				}
 			}
 		}
